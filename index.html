@@ -1,4 +1,159 @@
-utp-color-detector
-│
-├── index.html
-└── README.md
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>UTP Color Detector</title>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f2f2f2;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #222;
+}
+
+p {
+    font-size: 16px;
+}
+
+#camera {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+    background: black;
+}
+
+button {
+    margin-top: 20px;
+    padding: 15px 25px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    background: #222;
+    color: white;
+}
+
+#result {
+    margin-top: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.wires {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 15px;
+}
+
+.wire {
+    width: 35px;
+    height: 80px;
+    border: 2px solid #333;
+    background: white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🔌 UTP Color Detector</h1>
+
+<p>
+Place the uncrimped RJ45 in front of the camera.
+</p>
+
+<video id="camera" autoplay playsinline></video>
+
+<div class="wires">
+
+<div class="wire">1</div>
+<div class="wire">2</div>
+<div class="wire">3</div>
+<div class="wire">4</div>
+<div class="wire">5</div>
+<div class="wire">6</div>
+<div class="wire">7</div>
+<div class="wire">8</div>
+
+</div>
+
+<button onclick="checkCable()">
+📷 CHECK CABLE
+</button>
+
+<div id="result">
+Waiting for cable...
+</div>
+
+<script>
+
+const camera =
+document.getElementById("camera");
+
+const result =
+document.getElementById("result");
+
+async function startCamera() {
+
+    try {
+
+        const stream =
+        await navigator.mediaDevices.getUserMedia({
+
+            video: {
+                facingMode: "environment"
+            },
+
+            audio: false
+
+        });
+
+        camera.srcObject = stream;
+
+    }
+
+    catch(error) {
+
+        result.innerHTML =
+        "❌ Camera permission denied.";
+
+        console.log(error);
+
+    }
+
+}
+
+function checkCable() {
+
+    result.style.color = "green";
+
+    result.innerHTML =
+    "🟢 CAMERA READY<br><br>" +
+    "Color detection will be added next.";
+
+}
+
+startCamera();
+
+</script>
+
+</body>
+
+</html>
