@@ -154,43 +154,219 @@ async function startCamera() {
 
         console.log(error);
 
-    }
-
-}
-
-function checkCable() {
-
-    result.style.color = "green";
-
-    result.innerHTML =
-    "🟢 CAMERA READY<br><br>" +
-    "Color detection will be added next.";
-
 }
 
 startCamera();
 
-</script>
 
-<script>
-const colors = [
-  "White/Orange",
-  "Orange",
-  "White/Green",
-  "Blue",
-  "White/Blue",
-  "Green",
-  "White/Brown",
-  "Brown"
-];
+// ACTUAL CAMERA SCAN
+function checkCable() {
 
-function demoScan() {
-  const boxes = document.querySelectorAll(".wire");
+    const boxes = document.querySelectorAll(".wire");
 
-  boxes.forEach((box, index) => {
-    box.textContent = colors[index];
-  });
+    result.style.color = "black";
+
+    result.innerHTML =
+        "🔍 SCANNING...<br><br>" +
+        "Analyzing the 8 wire positions...";
+
+
+    // Create temporary canvas
+    const canvas = document.createElement("canvas");
+
+    const videoWidth = camera.videoWidth;
+    const videoHeight = camera.videoHeight;
+
+    if (!videoWidth || !videoHeight) {
+
+        result.innerHTML =
+            "❌ Camera is not ready yet.";
+
+        return;
+    }
+
+
+    canvas.width = videoWidth;
+    canvas.height = videoHeight;
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(
+        camera,
+        0,
+        0,
+        videoWidth,
+        videoHeight
+    );
+
+
+    // The 8 wires are expected to be arranged horizontally.
+    // We sample 8 positions across the center of the camera.
+
+    const y = Math.floor(videoHeight * 0.50);
+
+    const detectedColors = [];
+
+
+    for (let i = 0; i < 8; i++) {
+
+        const x = Math.floor(
+            videoWidth * ((i + 0.5) / 8)
+        );
+
+
+        // Read a small area around each wire
+        const sampleSize = 12;
+
+        const imageData = ctx.getImageData(
+            Math.max(0, x - sampleSize),
+            Math.max(0, y - sampleSize),
+            sampleSize * 2,
+            sampleSize * 2
+        );
+
+
+        const color = detectColor(imageData.data);
+
+        detectedColors.push(color);
+    }
+
+
+    // Show detected results
+
+    boxes.forEach((box, index) => {
+
+        box.textContent = detectedColors[index];
+
+        box.style.background =
+            getColorDisplay(detectedColors[index]);
+
+    });
+
+
+    // Compare with T568B
+
+    let correct = true;
+
+    for (let i = 0; i < 8; i++) {
+
+        if (detectedColors[i] !== colors[i]) {
+
+            correct = false;
+
+        }
+
+    }
+
+
+    if (correct) {
+
+        result.style.color = "green";
+
+        result.innerHTML =
+            "✅ CORRECT CABLE ORDER!<br><br>" +
+            "The detected wires match T568B.";
+
+    } else {
+
+        result.style.color = "red";
+
+        result.innerHTML =
+            "❌ COLOR ORDER DOES NOT MATCH T568B.<br><br>" +
+            "Check the wire positions.";
+
+    }
+
 }
+
+
+// Detect basic wire color from camera pixels
+function detectColor(data) {
+
+    let red = 0;
+    let green = 0;
+    let blue = 0;
+
+    let count = 0;
+
+
+    for (let i = 0; i < data.length; i += 4) {
+
+        red += data[i];
+        green += data[i + 1];
+        blue += data[i + 2];
+
+        count++;
+
+    }
+
+
+    red /= count;
+    green /= count;
+    blue /= count;
+
+
+    // White
+    if (
+        red > 150 &&
+        green > 150 &&
+        blue > 150
+    ) {
+
+        return "White";
+
+    }
+
+
+    // Orange
+    if (
+        red > green * 1.25 &&
+        red > blue * 1.5
+    ) {
+
+        return "Orange";
+
+    }
+
+
+    // Green
+    if (
+        green > red * 1.15 &&
+        green > blue * 1.1
+    ) {
+
+        return "Green";
+
+    }
+
+
+    // Blue
+    if (
+        blue > red * 1.25 &&
+        blue > green * 1.1
+    ) {
+
+        return "Blue";
+
+    }
+
+
+    // Brown
+    if (
+        red > blue * 1.2 &&
+        red > green * 1.05 &&
+        green > blue * 1.1
+    ) {
+
+        return "Brown";
+
+    }
+
+
+    return "Unknown";
+
+}
+
 </script>
 
 </body>
