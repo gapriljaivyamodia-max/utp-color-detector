@@ -94,8 +94,10 @@ Place the uncrimped RJ45 in front of the camera.
 
 </div>
 
-<button onclick="checkCable()">
-📷 CHECK CABLE
+</button>
+
+<button onclick="demoScan()">
+🧪 DEMO SCAN
 </button>
 
 <div id="result">
@@ -152,6 +154,27 @@ function checkCable() {
 
 startCamera();
 
+</script>
+
+<script>
+const colors = [
+  "White/Orange",
+  "Orange",
+  "White/Green",
+  "Blue",
+  "White/Blue",
+  "Green",
+  "White/Brown",
+  "Brown"
+];
+
+function demoScan() {
+  const boxes = document.querySelectorAll(".wire-box");
+
+  boxes.forEach((box, index) => {
+    box.textContent = colors[index];
+  });
+}
 </script>
 
 </body>
