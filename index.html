@@ -172,29 +172,47 @@ startCamera();
 
 // ACTUAL CAMERA SCAN
 function checkCable() {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
 
-    const boxes = document.querySelectorAll(".wire");
+    if (!camera.videoWidth || !camera.videoHeight) {
+        result.innerHTML = "❌ Camera is not ready.";
+        return;
+    }
+
+    canvas.width = camera.videoWidth;
+    canvas.height = camera.videoHeight;
+
+    ctx.drawImage(camera, 0, 0, canvas.width, canvas.height);
 
     result.style.color = "black";
-
     result.innerHTML =
         "🔍 SCANNING...<br><br>" +
         "Analyzing the 8 wire positions...";
 
+    const boxes = document.querySelectorAll(".wire");
 
-    // Create temporary canvas
-    const canvas = document.createElement("canvas");
+    // Temporary detection test:
+    // Read the color from the center area of each wire position.
+    boxes.forEach((box, index) => {
+        const x = canvas.width * (0.20 + index * 0.085);
+        const y = canvas.height * 0.50;
 
-    const videoWidth = camera.videoWidth;
-    const videoHeight = camera.videoHeight;
+        const pixel = ctx.getImageData(
+            Math.floor(x),
+            Math.floor(y),
+            1,
+            1
+        ).data;
 
-    if (!videoWidth || !videoHeight) {
+        box.textContent =
+            `${index + 1}: RGB(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
+    });
 
-        result.innerHTML =
-            "❌ Camera is not ready yet.";
-
-        return;
-    }
+    result.innerHTML =
+        "🟢 SCAN COMPLETE<br><br>" +
+        "Camera image captured successfully.";
+}
 
 
     canvas.width = videoWidth;
