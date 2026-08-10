@@ -129,31 +129,34 @@ const result =
 document.getElementById("result");
 
 async function startCamera() {
-
     try {
-
-        const stream =
-        await navigator.mediaDevices.getUserMedia({
-
+        const stream = await navigator.mediaDevices.getUserMedia({
             video: {
-                facingMode: "environment"
+                facingMode: { ideal: "environment" },
+                width: { ideal: 1280 },
+                height: { ideal: 720 }
             },
-
             audio: false
-
         });
 
         camera.srcObject = stream;
+        camera.muted = true;
+        camera.playsInline = true;
 
-    }
+        await camera.play();
 
-    catch(error) {
+        result.style.color = "green";
+        result.innerHTML = "🟢 CAMERA READY<br><br>Camera is working!";
+        
+    } catch (error) {
+        console.error(error);
 
+        result.style.color = "red";
         result.innerHTML =
-        "❌ Camera permission denied.";
-
-        console.log(error);
-
+            "❌ CAMERA ERROR<br><br>" +
+            error.name + "<br>" +
+            "Please allow camera access and reload the page.";
+    }
 }
 
 startCamera();
