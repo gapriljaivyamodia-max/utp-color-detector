@@ -102,7 +102,7 @@ Place the uncrimped RJ45 in front of the camera.
 
 </div>
 
-<button onclick="startCamera()">
+<button onclick="checkCable()">
 📷 CHECK CABLE
 </button>
 
@@ -154,26 +154,14 @@ async function startCamera() {
         await camera.play();
 
         result.style.color = "green";
-        result.innerHTML = "🟢 CAMERA READY<br><br>Camera is working!";
-
-    } catch (error) {
-        console.error("CAMERA ERROR:", error);
-
-        result.style.color = "red";
         result.innerHTML =
-            "❌ CAMERA ERROR<br><br>" +
-            error.name + "<br>" +
-            error.message;
-    }
-}
 
 startCamera();
 
 
 // ACTUAL CAMERA SCAN
 function checkCable() {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    const video = document.querySelector("video");
 
     if (!camera.videoWidth || !camera.videoHeight) {
         result.innerHTML = "❌ Camera is not ready.";
