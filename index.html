@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
@@ -16,7 +17,7 @@ body {
     text-align: center;
     background: #f2f2f2;
     margin: 0;
-    padding: 20px;
+    padding: 15px;
 }
 
 h1 {
@@ -27,100 +28,296 @@ p {
     font-size: 16px;
 }
 
+.camera-container {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
+}
+
 #camera {
     width: 100%;
-    max-width: 600px;
-    border-radius: 10px;
+    display: block;
+    border-radius: 12px;
     background: black;
 }
 
-button {
-    margin-top: 20px;
-    padding: 15px 25px;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
-    background: #222;
-    color: white;
+/* 8 scanning areas */
+
+.scan-boxes {
+    position: absolute;
+    top: 40%;
+    left: 2%;
+    width: 96%;
+    height: 20%;
+
+    display: flex;
+    justify-content: space-between;
+
+    pointer-events: none;
 }
 
-#result {
-    margin-top: 20px;
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    font-size: 24px;
+.scan-box {
+    width: 11%;
+    height: 100%;
+
+    border: 2px solid red;
+    border-radius: 5px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    color: white;
+
+    background: rgba(255, 0, 0, 0.12);
+
     font-weight: bold;
+    font-size: 12px;
+
+    padding-top: 3px;
 }
+
+/* Result wire boxes */
 
 .wires {
     display: flex;
     justify-content: center;
     gap: 5px;
+
     margin-top: 15px;
+
+    flex-wrap: wrap;
 }
 
 .wire {
-    width: 75px;
-    height: 80px;
+    width: 80px;
+    min-height: 70px;
+
     border: 2px solid #333;
+
     background: white;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
+
+    font-size: 11px;
     text-align: center;
-    padding: 3px;
+
+    padding: 5px;
+
     box-sizing: border-box;
+
+    border-radius: 8px;
 }
+
+button {
+
+    margin: 10px 5px;
+
+    padding: 14px 22px;
+
+    font-size: 17px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #222;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+#result {
+
+    margin: 20px auto;
+
+    padding: 20px;
+
+    max-width: 650px;
+
+    background: white;
+
+    border-radius: 10px;
+
+    font-size: 18px;
+
+    font-weight: bold;
+}
+
+#canvas {
+    display: none;
+}
+
+.legend {
+
+    max-width: 650px;
+
+    margin: 20px auto;
+
+    padding: 15px;
+
+    background: white;
+
+    border-radius: 10px;
+
+    text-align: left;
+}
+
+.legend h3 {
+    margin-top: 0;
 }
 
 </style>
 
 </head>
 
+
 <body>
+
 
 <h1>🔌 UTP Color Detector</h1>
 
+
 <p>
-Place the uncrimped RJ45 in front of the camera.
+
+Place the 8 uncrimped wires horizontally
+inside the red scanning boxes.
+
 </p>
 
-<video id="camera" autoplay playsinline></video>
+
+<!-- CAMERA -->
+
+<div class="camera-container">
+
+    <video
+        id="camera"
+        autoplay
+        playsinline>
+    </video>
+
+
+    <!-- SCANNING BOXES -->
+
+    <div class="scan-boxes">
+
+        <div class="scan-box">1</div>
+
+        <div class="scan-box">2</div>
+
+        <div class="scan-box">3</div>
+
+        <div class="scan-box">4</div>
+
+        <div class="scan-box">5</div>
+
+        <div class="scan-box">6</div>
+
+        <div class="scan-box">7</div>
+
+        <div class="scan-box">8</div>
+
+    </div>
+
+</div>
+
+
+<!-- DETECTED WIRES -->
 
 <div class="wires">
 
-<div class="wire">1</div>
-<div class="wire">2</div>
-<div class="wire">3</div>
-<div class="wire">4</div>
-<div class="wire">5</div>
-<div class="wire">6</div>
-<div class="wire">7</div>
-<div class="wire">8</div>
+    <div class="wire">Pin 1</div>
+
+    <div class="wire">Pin 2</div>
+
+    <div class="wire">Pin 3</div>
+
+    <div class="wire">Pin 4</div>
+
+    <div class="wire">Pin 5</div>
+
+    <div class="wire">Pin 6</div>
+
+    <div class="wire">Pin 7</div>
+
+    <div class="wire">Pin 8</div>
 
 </div>
+
+
+<!-- BUTTONS -->
 
 <button onclick="checkCable()">
+
 📷 CHECK CABLE
+
 </button>
+
 
 <button onclick="demoScan()">
+
 🧪 DEMO SCAN
+
 </button>
 
-<div id="result">
-Waiting for cable...
-</div>
+
+<!-- RESULT -->
 
 <div id="result">
-Waiting for cable...
+
+📷 Starting camera...
+
 </div>
-Waiting for cable...
+
+
+<!-- T568B REFERENCE -->
+
+<div class="legend">
+
+<h3>📌 T568B Standard</h3>
+
+<p>
+
+1️⃣ White/Orange<br>
+
+2️⃣ Orange<br>
+
+3️⃣ White/Green<br>
+
+4️⃣ Blue<br>
+
+5️⃣ White/Blue<br>
+
+6️⃣ Green<br>
+
+7️⃣ White/Brown<br>
+
+8️⃣ Brown
+
+</p>
+
 </div>
+
+
+<canvas id="canvas"></canvas>
+
 
 <script>
+
+
+// ========================================
+// VARIABLES
+// ========================================
 
 const camera =
 document.getElementById("camera");
@@ -128,187 +325,302 @@ document.getElementById("camera");
 const result =
 document.getElementById("result");
 
+const canvas =
+document.getElementById("canvas");
+
+const ctx =
+canvas.getContext("2d");
+
+const wireBoxes =
+document.querySelectorAll(".wire");
+
+
+const scanBoxes =
+document.querySelectorAll(".scan-box");
+
+
+// T568B
+
+const T568B = [
+
+    "White/Orange",
+
+    "Orange",
+
+    "White/Green",
+
+    "Blue",
+
+    "White/Blue",
+
+    "Green",
+
+    "White/Brown",
+
+    "Brown"
+
+];
+
+
+// ========================================
+// START CAMERA
+// ========================================
+
 async function startCamera() {
-    const result = document.getElementById("result");
-    const camera = document.getElementById("camera");
 
     try {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-            throw new Error("Camera API is not available");
+
+        if (
+            !navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia
+        ) {
+
+            throw new Error(
+                "Camera API unavailable"
+            );
+
         }
 
-        result.innerHTML = "📷 Requesting camera access...";
 
-        const stream = await navigator.mediaDevices.getUserMedia({
-            video: {
-                facingMode: "environment"
-            },
-            audio: false
-        });
+        result.innerHTML =
+            "📷 Requesting camera permission...";
 
-        camera.srcObject = stream;
-        camera.autoplay = true;
-        camera.playsInline = true;
-        camera.muted = true;
+
+        const stream =
+            await navigator.mediaDevices
+            .getUserMedia({
+
+                video: {
+
+                    facingMode: {
+                        ideal: "environment"
+                    }
+
+                },
+
+                audio: false
+
+            });
+
+
+        camera.srcObject =
+            stream;
+
 
         await camera.play();
 
-        result.style.color = "green";
+
+        result.style.color =
+            "green";
+
+
         result.innerHTML =
+            "🟢 CAMERA READY<br><br>" +
 
-startCamera();
+            "Place each wire inside " +
+            "the red boxes.";
 
-
-// ACTUAL CAMERA SCAN
-function checkCable() {
-    const video = document.querySelector("video");
-
-    if (!camera.videoWidth || !camera.videoHeight) {
-        result.innerHTML = "❌ Camera is not ready.";
-        return;
     }
 
-    canvas.width = camera.videoWidth;
-    canvas.height = camera.videoHeight;
+    catch (error) {
 
-    ctx.drawImage(camera, 0, 0, canvas.width, canvas.height);
+        console.error(error);
 
-    result.style.color = "black";
-    result.innerHTML =
-        "🔍 SCANNING...<br><br>" +
-        "Analyzing the 8 wire positions...";
 
-    const boxes = document.querySelectorAll(".wire");
+        result.style.color =
+            "red";
 
-    // Detect the color of each wire position
-boxes.forEach((box, index) => {
 
-    // Position of each wire across the camera image
-    const x = canvas.width * ((index + 0.5) / 8);
-    const y = canvas.height * 0.5;
+        result.innerHTML =
+            "❌ CAMERA ERROR<br><br>" +
 
-    // Read a small area instead of only one pixel
-    const size = 15;
-    const imageData = ctx.getImageData(
-        Math.max(0, Math.floor(x - size / 2)),
-        Math.max(0, Math.floor(y - size / 2)),
-        size,
-        size
-    );
+            "Allow camera permission " +
+            "and make sure the website " +
+            "is using HTTPS.";
 
-    let r = 0;
-    let g = 0;
-    let b = 0;
-    let count = 0;
-
-    // Average the pixels
-    for (let i = 0; i < imageData.data.length; i += 4) {
-        r += imageData.data[i];
-        g += imageData.data[i + 1];
-        b += imageData.data[i + 2];
-        count++;
     }
 
-    r /= count;
-    g /= count;
-    b /= count;
-
-    // Convert RGB to a simple color name
-    let color;
-
-    if (r > 180 && g > 180 && b > 180) {
-        color = "White";
-    }
-    else if (r > g * 1.3 && r > b * 1.3) {
-        color = "Orange";
-    }
-    else if (g > r * 1.2 && g > b * 1.2) {
-        color = "Green";
-    }
-    else if (b > r * 1.2 && b > g * 1.1) {
-        color = "Blue";
-    }
-    else if (r > 70 && g > 40 && b < 80) {
-        color = "Brown";
-    }
-    else {
-        color = "Unknown";
-    }
-
-    box.textContent = color;
-});
-
-    result.innerHTML =
-        "🟢 SCAN COMPLETE<br><br>" +
-        "Camera image captured successfully.";
 }
 
 
-    canvas.width = videoWidth;
-    canvas.height = videoHeight;
+// ========================================
+// CHECK CABLE
+// ========================================
 
-    const ctx = canvas.getContext("2d");
+function checkCable() {
+
+
+    if (
+        !camera.videoWidth ||
+        !camera.videoHeight
+    ) {
+
+        result.style.color =
+            "red";
+
+
+        result.innerHTML =
+            "❌ Camera is not ready.";
+
+        return;
+
+    }
+
+
+    // Canvas size
+
+    canvas.width =
+        camera.videoWidth;
+
+    canvas.height =
+        camera.videoHeight;
+
+
+    // Capture frame
 
     ctx.drawImage(
+
         camera,
+
         0,
+
         0,
-        videoWidth,
-        videoHeight
+
+        canvas.width,
+
+        canvas.height
+
     );
 
 
-    // The 8 wires are expected to be arranged horizontally.
-    // We sample 8 positions across the center of the camera.
+    result.style.color =
+        "black";
 
-    const y = Math.floor(videoHeight * 0.50);
+
+    result.innerHTML =
+        "🔍 SCANNING...";
+
 
     const detectedColors = [];
 
 
-    for (let i = 0; i < 8; i++) {
+    // ====================================
+    // SCAN EACH WIRE
+    // ====================================
 
-        const x = Math.floor(
-            videoWidth * ((i + 0.5) / 8)
+    for (
+        let i = 0;
+        i < 8;
+        i++
+    ) {
+
+
+        /*
+        Each wire has its own
+        horizontal scanning area.
+        */
+
+
+        const x =
+            canvas.width *
+            ((i + 0.5) / 8);
+
+
+        const y =
+            canvas.height *
+            0.50;
+
+
+        /*
+        Scan area size.
+        */
+
+
+        const sampleWidth =
+            canvas.width * 0.06;
+
+
+        const sampleHeight =
+            canvas.height * 0.10;
+
+
+        const imageData =
+            ctx.getImageData(
+
+                Math.max(
+                    0,
+                    Math.floor(
+                        x -
+                        sampleWidth / 2
+                    )
+                ),
+
+                Math.max(
+                    0,
+                    Math.floor(
+                        y -
+                        sampleHeight / 2
+                    )
+                ),
+
+                Math.floor(
+                    sampleWidth
+                ),
+
+                Math.floor(
+                    sampleHeight
+                )
+
+            );
+
+
+        const detected =
+            detectColor(
+                imageData.data
+            );
+
+
+        detectedColors.push(
+            detected
         );
 
 
-        // Read a small area around each wire
-        const sampleSize = 12;
+        // Show result
 
-        const imageData = ctx.getImageData(
-            Math.max(0, x - sampleSize),
-            Math.max(0, y - sampleSize),
-            sampleSize * 2,
-            sampleSize * 2
-        );
+        wireBoxes[i].textContent =
+            detected;
 
 
-        const color = detectColor(imageData.data);
+        wireBoxes[i].style.background =
+            getDisplayColor(
+                detected
+            );
 
-        detectedColors.push(color);
+
+        wireBoxes[i].style.color =
+            "black";
+
     }
 
 
-    // Show detected results
-
-    boxes.forEach((box, index) => {
-
-        box.textContent = detectedColors[index];
-
-        box.style.background =
-            getColorDisplay(detectedColors[index]);
-
-    });
-
-
-    // Compare with T568B
+    // ====================================
+    // COMPARE T568B
+    // ====================================
 
     let correct = true;
 
-    for (let i = 0; i < 8; i++) {
 
-        if (detectedColors[i] !== colors[i]) {
+    for (
+        let i = 0;
+        i < 8;
+        i++
+    ) {
+
+        if (
+            detectedColors[i]
+            !==
+            T568B[i]
+        ) {
 
             correct = false;
 
@@ -317,42 +629,96 @@ boxes.forEach((box, index) => {
     }
 
 
+    // ====================================
+    // RESULT
+    // ====================================
+
     if (correct) {
 
-        result.style.color = "green";
+
+        result.style.color =
+            "green";
+
 
         result.innerHTML =
-            "✅ CORRECT CABLE ORDER!<br><br>" +
-            "The detected wires match T568B.";
 
-    } else {
+            "✅ CORRECT T568B ORDER!" +
 
-        result.style.color = "red";
+            "<br><br>" +
+
+            detectedColors.join(
+                " → "
+            );
+
+    }
+
+    else {
+
+
+        result.style.color =
+            "red";
+
 
         result.innerHTML =
-            "❌ COLOR ORDER DOES NOT MATCH T568B.<br><br>" +
-            "Check the wire positions.";
+
+            "❌ WRONG WIRE ORDER" +
+
+            "<br><br>" +
+
+            "Detected:<br>" +
+
+            detectedColors.join(
+                " → "
+            ) +
+
+            "<br><br>" +
+
+            "Expected T568B:<br>" +
+
+            T568B.join(
+                " → "
+            );
 
     }
 
 }
 
 
-// Detect basic wire color from camera pixels
+// ========================================
+// COLOR DETECTION
+// ========================================
+
 function detectColor(data) {
 
+
     let red = 0;
+
     let green = 0;
+
     let blue = 0;
+
 
     let count = 0;
 
 
-    for (let i = 0; i < data.length; i += 4) {
+    for (
+        let i = 0;
+        i < data.length;
+        i += 4
+    ) {
 
-        red += data[i];
-        green += data[i + 1];
-        blue += data[i + 2];
+
+        red +=
+            data[i];
+
+
+        green +=
+            data[i + 1];
+
+
+        blue +=
+            data[i + 2];
+
 
         count++;
 
@@ -360,15 +726,22 @@ function detectColor(data) {
 
 
     red /= count;
+
     green /= count;
+
     blue /= count;
 
 
-    // White
+    // ====================================
+    // WHITE
+    // ====================================
+
     if (
+
         red > 150 &&
         green > 150 &&
         blue > 150
+
     ) {
 
         return "White";
@@ -376,10 +749,16 @@ function detectColor(data) {
     }
 
 
-    // Orange
+    // ====================================
+    // ORANGE
+    // ====================================
+
     if (
+
+        red > 100 &&
         red > green * 1.25 &&
-        red > blue * 1.5
+        red > blue * 1.35
+
     ) {
 
         return "Orange";
@@ -387,10 +766,15 @@ function detectColor(data) {
     }
 
 
-    // Green
+    // ====================================
+    // GREEN
+    // ====================================
+
     if (
+
         green > red * 1.15 &&
-        green > blue * 1.1
+        green > blue * 1.10
+
     ) {
 
         return "Green";
@@ -398,10 +782,15 @@ function detectColor(data) {
     }
 
 
-    // Blue
+    // ====================================
+    // BLUE
+    // ====================================
+
     if (
-        blue > red * 1.25 &&
-        blue > green * 1.1
+
+        blue > red * 1.20 &&
+        blue > green * 1.10
+
     ) {
 
         return "Blue";
@@ -409,11 +798,16 @@ function detectColor(data) {
     }
 
 
-    // Brown
+    // ====================================
+    // BROWN
+    // ====================================
+
     if (
-        red > blue * 1.2 &&
-        red > green * 1.05 &&
-        green > blue * 1.1
+
+        red > blue * 1.20 &&
+        green > blue * 1.10 &&
+        red > green
+
     ) {
 
         return "Brown";
@@ -424,6 +818,146 @@ function detectColor(data) {
     return "Unknown";
 
 }
+
+
+// ========================================
+// DISPLAY COLORS
+// ========================================
+
+function getDisplayColor(color) {
+
+
+    switch (color) {
+
+
+        case "Orange":
+
+            return "#ff9800";
+
+
+        case "Green":
+
+            return "#4caf50";
+
+
+        case "Blue":
+
+            return "#2196f3";
+
+
+        case "Brown":
+
+            return "#795548";
+
+
+        case "White":
+
+            return "#ffffff";
+
+
+        case "White/Orange":
+
+            return "#fff3e0";
+
+
+        case "White/Green":
+
+            return "#e8f5e9";
+
+
+        case "White/Blue":
+
+            return "#e3f2fd";
+
+
+        case "White/Brown":
+
+            return "#efebe9";
+
+
+        default:
+
+            return "#dddddd";
+
+    }
+
+}
+
+
+// ========================================
+// DEMO SCAN
+// ========================================
+
+function demoScan() {
+
+
+    const demoColors = [
+
+        "White/Orange",
+
+        "Orange",
+
+        "White/Green",
+
+        "Blue",
+
+        "White/Blue",
+
+        "Green",
+
+        "White/Brown",
+
+        "Brown"
+
+    ];
+
+
+    for (
+        let i = 0;
+        i < 8;
+        i++
+    ) {
+
+
+        wireBoxes[i].textContent =
+            demoColors[i];
+
+
+        wireBoxes[i].style.background =
+            getDisplayColor(
+                demoColors[i]
+            );
+
+    }
+
+
+    result.style.color =
+        "green";
+
+
+    result.innerHTML =
+
+        "🧪 DEMO SCAN COMPLETE" +
+
+        "<br><br>" +
+
+        "✅ T568B ORDER IS CORRECT" +
+
+        "<br><br>" +
+
+        demoColors.join(
+            " → "
+        );
+
+}
+
+
+// ========================================
+// START
+// ========================================
+
+startCamera();
+
 
 </script>
 
