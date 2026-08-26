@@ -12,113 +12,177 @@ content="width=device-width, initial-scale=1.0">
 
 <style>
 
+* {
+    box-sizing: border-box;
+}
+
 body {
+
     font-family: Arial, sans-serif;
+
     text-align: center;
+
     background: #f2f2f2;
+
     margin: 0;
+
     padding: 15px;
+
 }
 
 h1 {
+
     color: #222;
+
 }
 
 p {
-    font-size: 16px;
+
+    font-size: 15px;
+
 }
 
+
+/* =================================
+   CAMERA
+================================= */
+
 .camera-container {
+
     position: relative;
+
     width: 100%;
+
     max-width: 700px;
+
     margin: auto;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
 }
 
 #camera {
+
     width: 100%;
+
     display: block;
-    border-radius: 12px;
+
     background: black;
+
 }
 
-/* 8 scanning areas */
 
-.scan-boxes {
+/* =================================
+   RJ45 SCAN AREA
+================================= */
+
+.rj45-frame {
+
     position: absolute;
-    top: 40%;
-    left: 2%;
-    width: 96%;
-    height: 20%;
 
-    display: flex;
-    justify-content: space-between;
+    /*
+       Move these values if necessary.
+       This is the area where the
+       transparent RJ45 should be placed.
+    */
 
-    pointer-events: none;
-}
+    left: 25%;
 
-.scan-box {
-    width: 11%;
-    height: 100%;
+    top: 25%;
 
-    border: 2px solid red;
-    border-radius: 5px;
+    width: 50%;
 
-    box-sizing: border-box;
+    height: 45%;
 
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-
-    color: white;
-
-    background: rgba(255, 0, 0, 0.12);
-
-    font-weight: bold;
-    font-size: 12px;
-
-    padding-top: 3px;
-}
-
-/* Result wire boxes */
-
-.wires {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-
-    margin-top: 15px;
-
-    flex-wrap: wrap;
-}
-
-.wire {
-    width: 80px;
-    min-height: 70px;
-
-    border: 2px solid #333;
-
-    background: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 11px;
-    text-align: center;
-
-    padding: 5px;
-
-    box-sizing: border-box;
+    border: 3px solid red;
 
     border-radius: 8px;
+
+    pointer-events: none;
+
 }
+
+
+/* Text at top of scanning area */
+
+.frame-label {
+
+    position: absolute;
+
+    top: -30px;
+
+    left: 0;
+
+    width: 100%;
+
+    color: red;
+
+    font-weight: bold;
+
+    font-size: 13px;
+
+}
+
+
+/* =================================
+   8 WIRE GUIDE LINES
+================================= */
+
+.wire-guides {
+
+    position: absolute;
+
+    left: 4%;
+
+    right: 4%;
+
+    top: 12%;
+
+    bottom: 5%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+}
+
+
+.guide {
+
+    width: 11%;
+
+    height: 100%;
+
+    border-left: 2px dashed rgba(255,0,0,0.8);
+
+    border-right: 2px dashed rgba(255,0,0,0.8);
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: center;
+
+    color: red;
+
+    font-weight: bold;
+
+    font-size: 11px;
+
+}
+
+
+/* =================================
+   BUTTONS
+================================= */
 
 button {
 
     margin: 10px 5px;
 
-    padding: 14px 22px;
+    padding: 14px 20px;
 
     font-size: 17px;
 
@@ -131,51 +195,135 @@ button {
     color: white;
 
     cursor: pointer;
+
 }
+
 
 button:active {
+
     transform: scale(0.97);
+
 }
 
+
+/* =================================
+   RESULTS
+================================= */
+
 #result {
+
+    max-width: 700px;
 
     margin: 20px auto;
 
     padding: 20px;
 
-    max-width: 650px;
-
     background: white;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
     font-size: 18px;
 
     font-weight: bold;
+
 }
 
-#canvas {
-    display: none;
+
+/* =================================
+   PIN RESULTS
+================================= */
+
+.wires {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 8px;
+
+    max-width: 700px;
+
+    margin: 15px auto;
+
 }
 
-.legend {
 
-    max-width: 650px;
+.wire {
 
-    margin: 20px auto;
+    min-height: 75px;
 
-    padding: 15px;
+    padding: 8px;
+
+    border: 2px solid #333;
+
+    border-radius: 8px;
 
     background: white;
 
-    border-radius: 10px;
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 12px;
+
+}
+
+
+.pin {
+
+    font-weight: bold;
+
+    margin-bottom: 5px;
+
+}
+
+
+/* =================================
+   T568B REFERENCE
+================================= */
+
+.reference {
+
+    max-width: 700px;
+
+    margin: 20px auto;
+
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 15px;
 
     text-align: left;
+
 }
 
-.legend h3 {
+
+.reference h3 {
+
     margin-top: 0;
+
 }
+
+
+.reference ol {
+
+    padding-left: 25px;
+
+}
+
+
+#canvas {
+
+    display: none;
+
+}
+
 
 </style>
 
@@ -190,15 +338,22 @@ button:active {
 
 <p>
 
-Place the 8 uncrimped wires horizontally
-inside the red scanning boxes.
+Place the transparent RJ45 connector
+inside the red scanning frame.
+
+<br>
+
+Align the 8 wires with the 8 guide columns.
 
 </p>
 
 
-<!-- CAMERA -->
+<!-- =================================
+     CAMERA
+================================= -->
 
 <div class="camera-container">
+
 
     <video
         id="camera"
@@ -207,59 +362,148 @@ inside the red scanning boxes.
     </video>
 
 
-    <!-- SCANNING BOXES -->
+    <!-- RJ45 TARGET -->
 
-    <div class="scan-boxes">
+    <div class="rj45-frame">
 
-        <div class="scan-box">1</div>
+        <div class="frame-label">
 
-        <div class="scan-box">2</div>
+            RJ45 WIRE SCAN AREA
 
-        <div class="scan-box">3</div>
+        </div>
 
-        <div class="scan-box">4</div>
 
-        <div class="scan-box">5</div>
+        <div class="wire-guides">
 
-        <div class="scan-box">6</div>
+            <div class="guide">1</div>
 
-        <div class="scan-box">7</div>
+            <div class="guide">2</div>
 
-        <div class="scan-box">8</div>
+            <div class="guide">3</div>
+
+            <div class="guide">4</div>
+
+            <div class="guide">5</div>
+
+            <div class="guide">6</div>
+
+            <div class="guide">7</div>
+
+            <div class="guide">8</div>
+
+        </div>
 
     </div>
 
+
 </div>
 
 
-<!-- DETECTED WIRES -->
+<!-- =================================
+     PIN RESULTS
+================================= -->
 
 <div class="wires">
 
-    <div class="wire">Pin 1</div>
 
-    <div class="wire">Pin 2</div>
+    <div class="wire">
 
-    <div class="wire">Pin 3</div>
+        <div class="pin">PIN 1</div>
 
-    <div class="wire">Pin 4</div>
+        <div id="pin1">
+            Waiting...
+        </div>
 
-    <div class="wire">Pin 5</div>
+    </div>
 
-    <div class="wire">Pin 6</div>
 
-    <div class="wire">Pin 7</div>
+    <div class="wire">
 
-    <div class="wire">Pin 8</div>
+        <div class="pin">PIN 2</div>
+
+        <div id="pin2">
+            Waiting...
+        </div>
+
+    </div>
+
+
+    <div class="wire">
+
+        <div class="pin">PIN 3</div>
+
+        <div id="pin3">
+            Waiting...
+        </div>
+
+    </div>
+
+
+    <div class="wire">
+
+        <div class="pin">PIN 4</div>
+
+        <div id="pin4">
+            Waiting...
+        </div>
+
+    </div>
+
+
+    <div class="wire">
+
+        <div class="pin">PIN 5</div>
+
+        <div id="pin5">
+            Waiting...
+        </div>
+
+    </div>
+
+
+    <div class="wire">
+
+        <div class="pin">PIN 6</div>
+
+        <div id="pin6">
+            Waiting...
+        </div>
+
+    </div>
+
+
+    <div class="wire">
+
+        <div class="pin">PIN 7</div>
+
+        <div id="pin7">
+            Waiting...
+        </div>
+
+    </div>
+
+
+    <div class="wire">
+
+        <div class="pin">PIN 8</div>
+
+        <div id="pin8">
+            Waiting...
+        </div>
+
+    </div>
+
 
 </div>
 
 
-<!-- BUTTONS -->
+<!-- =================================
+     BUTTONS
+================================= -->
 
 <button onclick="checkCable()">
 
-📷 CHECK CABLE
+📷 CHECK RJ45
 
 </button>
 
@@ -271,7 +515,9 @@ inside the red scanning boxes.
 </button>
 
 
-<!-- RESULT -->
+<!-- =================================
+     RESULT
+================================= -->
 
 <div id="result">
 
@@ -280,31 +526,33 @@ inside the red scanning boxes.
 </div>
 
 
-<!-- T568B REFERENCE -->
+<!-- =================================
+     T568B REFERENCE
+================================= -->
 
-<div class="legend">
+<div class="reference">
 
 <h3>📌 T568B Standard</h3>
 
-<p>
+<ol>
 
-1️⃣ White/Orange<br>
+<li>White/Orange</li>
 
-2️⃣ Orange<br>
+<li>Orange</li>
 
-3️⃣ White/Green<br>
+<li>White/Green</li>
 
-4️⃣ Blue<br>
+<li>Blue</li>
 
-5️⃣ White/Blue<br>
+<li>White/Blue</li>
 
-6️⃣ Green<br>
+<li>Green</li>
 
-7️⃣ White/Brown<br>
+<li>White/Brown</li>
 
-8️⃣ Brown
+<li>Brown</li>
 
-</p>
+</ol>
 
 </div>
 
@@ -316,27 +564,27 @@ inside the red scanning boxes.
 
 
 // ========================================
-// VARIABLES
+// ELEMENTS
 // ========================================
 
 const camera =
-document.getElementById("camera");
+    document.getElementById("camera");
 
-const result =
-document.getElementById("result");
 
 const canvas =
-document.getElementById("canvas");
+    document.getElementById("canvas");
+
 
 const ctx =
-canvas.getContext("2d");
-
-const wireBoxes =
-document.querySelectorAll(".wire");
+    canvas.getContext("2d");
 
 
-const scanBoxes =
-document.querySelectorAll(".scan-box");
+const result =
+    document.getElementById("result");
+
+
+const rj45Frame =
+    document.querySelector(".rj45-frame");
 
 
 // T568B
@@ -370,18 +618,6 @@ async function startCamera() {
 
     try {
 
-        if (
-            !navigator.mediaDevices ||
-            !navigator.mediaDevices.getUserMedia
-        ) {
-
-            throw new Error(
-                "Camera API unavailable"
-            );
-
-        }
-
-
         result.innerHTML =
             "📷 Requesting camera permission...";
 
@@ -394,6 +630,14 @@ async function startCamera() {
 
                     facingMode: {
                         ideal: "environment"
+                    },
+
+                    width: {
+                        ideal: 1280
+                    },
+
+                    height: {
+                        ideal: 720
                     }
 
                 },
@@ -415,10 +659,14 @@ async function startCamera() {
 
 
         result.innerHTML =
-            "🟢 CAMERA READY<br><br>" +
 
-            "Place each wire inside " +
-            "the red boxes.";
+            "🟢 CAMERA READY" +
+
+            "<br><br>" +
+
+            "Place the RJ45 inside " +
+            "the red frame.";
+
 
     }
 
@@ -432,11 +680,12 @@ async function startCamera() {
 
 
         result.innerHTML =
-            "❌ CAMERA ERROR<br><br>" +
 
-            "Allow camera permission " +
-            "and make sure the website " +
-            "is using HTTPS.";
+            "❌ CAMERA ERROR" +
+
+            "<br><br>" +
+
+            "Allow camera permission.";
 
     }
 
@@ -444,15 +693,82 @@ async function startCamera() {
 
 
 // ========================================
-// CHECK CABLE
+// GET FRAME POSITION
+// ========================================
+
+function getScanArea() {
+
+
+    const videoRect =
+        camera.getBoundingClientRect();
+
+
+    const frameRect =
+        rj45Frame.getBoundingClientRect();
+
+
+    /*
+       Convert screen coordinates
+       into actual camera pixels.
+    */
+
+
+    const scaleX =
+        camera.videoWidth /
+        videoRect.width;
+
+
+    const scaleY =
+        camera.videoHeight /
+        videoRect.height;
+
+
+    const left =
+        (frameRect.left -
+        videoRect.left) *
+        scaleX;
+
+
+    const top =
+        (frameRect.top -
+        videoRect.top) *
+        scaleY;
+
+
+    const width =
+        frameRect.width *
+        scaleX;
+
+
+    const height =
+        frameRect.height *
+        scaleY;
+
+
+    return {
+
+        left,
+        top,
+        width,
+        height
+
+    };
+
+}
+
+
+// ========================================
+// CHECK RJ45
 // ========================================
 
 function checkCable() {
 
 
     if (
+
         !camera.videoWidth ||
         !camera.videoHeight
+
     ) {
 
         result.style.color =
@@ -467,16 +783,17 @@ function checkCable() {
     }
 
 
-    // Canvas size
+    // Canvas
 
     canvas.width =
         camera.videoWidth;
+
 
     canvas.height =
         camera.videoHeight;
 
 
-    // Capture frame
+    // Capture image
 
     ctx.drawImage(
 
@@ -493,19 +810,24 @@ function checkCable() {
     );
 
 
+    const area =
+        getScanArea();
+
+
     result.style.color =
         "black";
 
 
     result.innerHTML =
-        "🔍 SCANNING...";
+        "🔍 ANALYZING RJ45 WIRES...";
 
 
-    const detectedColors = [];
+    const detected =
+        [];
 
 
     // ====================================
-    // SCAN EACH WIRE
+    // SCAN 8 PIN POSITIONS
     // ====================================
 
     for (
@@ -516,51 +838,62 @@ function checkCable() {
 
 
         /*
-        Each wire has its own
-        horizontal scanning area.
+           Calculate horizontal position
+           of each wire.
         */
 
 
-        const x =
-            canvas.width *
-            ((i + 0.5) / 8);
+        const centerX =
 
+            area.left +
 
-        const y =
-            canvas.height *
-            0.50;
+            area.width *
+            (
+                (i + 0.5) / 8
+            );
 
 
         /*
-        Scan area size.
+           Don't scan the very top,
+           because the metal contacts
+           can interfere with color.
         */
 
 
+        const startY =
+
+            area.top +
+            area.height * 0.25;
+
+
+        const scanHeight =
+
+            area.height * 0.55;
+
+
         const sampleWidth =
-            canvas.width * 0.06;
 
-
-        const sampleHeight =
-            canvas.height * 0.10;
+            Math.max(
+                5,
+                area.width * 0.07
+            );
 
 
         const imageData =
+
             ctx.getImageData(
 
                 Math.max(
                     0,
                     Math.floor(
-                        x -
+                        centerX -
                         sampleWidth / 2
                     )
                 ),
 
                 Math.max(
                     0,
-                    Math.floor(
-                        y -
-                        sampleHeight / 2
-                    )
+                    Math.floor(startY)
                 ),
 
                 Math.floor(
@@ -568,46 +901,51 @@ function checkCable() {
                 ),
 
                 Math.floor(
-                    sampleHeight
+                    scanHeight
                 )
 
             );
 
 
-        const detected =
-            detectColor(
+        const wireColor =
+
+            detectWireColor(
                 imageData.data
             );
 
 
-        detectedColors.push(
-            detected
+        detected.push(
+            wireColor
         );
 
 
         // Show result
 
-        wireBoxes[i].textContent =
-            detected;
-
-
-        wireBoxes[i].style.background =
-            getDisplayColor(
-                detected
+        const box =
+            document.getElementById(
+                "pin" + (i + 1)
             );
 
 
-        wireBoxes[i].style.color =
-            "black";
+        box.textContent =
+            wireColor;
+
+
+        box.parentElement.style.background =
+            displayColor(
+                wireColor
+            );
 
     }
 
 
     // ====================================
-    // COMPARE T568B
+    // COMPARE WITH T568B
     // ====================================
 
     let correct = true;
+
+    const errors = [];
 
 
     for (
@@ -616,13 +954,29 @@ function checkCable() {
         i++
     ) {
 
+
         if (
-            detectedColors[i]
-            !==
+            detected[i] !==
             T568B[i]
         ) {
 
             correct = false;
+
+
+            errors.push(
+
+                "Pin " +
+                (i + 1) +
+
+                ": Expected " +
+
+                T568B[i] +
+
+                ", detected " +
+
+                detected[i]
+
+            );
 
         }
 
@@ -630,11 +984,10 @@ function checkCable() {
 
 
     // ====================================
-    // RESULT
+    // CORRECT
     // ====================================
 
     if (correct) {
-
 
         result.style.color =
             "green";
@@ -642,18 +995,22 @@ function checkCable() {
 
         result.innerHTML =
 
-            "✅ CORRECT T568B ORDER!" +
+            "✅ T568B ORDER CORRECT!" +
 
             "<br><br>" +
 
-            detectedColors.join(
+            detected.join(
                 " → "
             );
 
     }
 
-    else {
 
+    // ====================================
+    // WRONG
+    // ====================================
+
+    else {
 
         result.style.color =
             "red";
@@ -665,18 +1022,8 @@ function checkCable() {
 
             "<br><br>" +
 
-            "Detected:<br>" +
-
-            detectedColors.join(
-                " → "
-            ) +
-
-            "<br><br>" +
-
-            "Expected T568B:<br>" +
-
-            T568B.join(
-                " → "
+            errors.join(
+                "<br>"
             );
 
     }
@@ -688,18 +1035,31 @@ function checkCable() {
 // COLOR DETECTION
 // ========================================
 
-function detectColor(data) {
+function detectWireColor(data) {
 
 
-    let red = 0;
+    let coloredPixels = {
 
-    let green = 0;
+        orange: 0,
 
-    let blue = 0;
+        green: 0,
+
+        blue: 0,
+
+        brown: 0
+
+    };
 
 
-    let count = 0;
+    let whitePixels = 0;
 
+    let total = 0;
+
+
+    /*
+       Analyze every pixel in
+       the wire sample.
+    */
 
     for (
         let i = 0;
@@ -708,109 +1068,292 @@ function detectColor(data) {
     ) {
 
 
-        red +=
+        const r =
             data[i];
 
 
-        green +=
+        const g =
             data[i + 1];
 
 
-        blue +=
+        const b =
             data[i + 2];
 
 
-        count++;
+        total++;
+
+
+        // Brightness
+
+        const brightness =
+            (r + g + b) / 3;
+
+
+        // Saturation
+
+        const max =
+            Math.max(
+                r,
+                g,
+                b
+            );
+
+
+        const min =
+            Math.min(
+                r,
+                g,
+                b
+            );
+
+
+        const saturation =
+            max === 0
+            ? 0
+            : (max - min) / max;
+
+
+        // =================================
+        // WHITE
+        // =================================
+
+        if (
+
+            brightness > 130 &&
+            saturation < 0.28
+
+        ) {
+
+            whitePixels++;
+
+        }
+
+
+        // Ignore very dark pixels
+
+        if (
+            brightness < 45
+        ) {
+
+            continue;
+
+        }
+
+
+        // =================================
+        // ORANGE
+        // =================================
+
+        if (
+
+            r > g * 1.15 &&
+            r > b * 1.35 &&
+            g > b * 1.05
+
+        ) {
+
+            coloredPixels.orange++;
+
+        }
+
+
+        // =================================
+        // GREEN
+        // =================================
+
+        else if (
+
+            g > r * 1.12 &&
+            g > b * 1.05
+
+        ) {
+
+            coloredPixels.green++;
+
+        }
+
+
+        // =================================
+        // BLUE
+        // =================================
+
+        else if (
+
+            b > r * 1.18 &&
+            b > g * 1.05
+
+        ) {
+
+            coloredPixels.blue++;
+
+        }
+
+
+        // =================================
+        // BROWN
+        // =================================
+
+        else if (
+
+            r > g &&
+            g > b &&
+            r > b * 1.25
+
+        ) {
+
+            coloredPixels.brown++;
+
+        }
 
     }
 
 
-    red /= count;
+    /*
+       Find strongest colored signal.
+    */
 
-    green /= count;
+    let strongest =
+        "Unknown";
 
-    blue /= count;
+
+    let highest =
+        0;
 
 
-    // ====================================
-    // WHITE
-    // ====================================
+    for (
+        const color in coloredPixels
+    ) {
+
+        if (
+            coloredPixels[color]
+            > highest
+        ) {
+
+            highest =
+                coloredPixels[color];
+
+            strongest =
+                color;
+
+        }
+
+    }
+
+
+    /*
+       Convert to percentage.
+    */
+
+    const colorRatio =
+        highest / total;
+
+
+    const whiteRatio =
+        whitePixels / total;
+
+
+    // =================================
+    // WHITE + COLORED STRIPE
+    // =================================
 
     if (
+        whiteRatio > 0.25 &&
+        colorRatio > 0.015
+    ) {
 
-        red > 150 &&
-        green > 150 &&
-        blue > 150
 
+        if (
+            strongest === "orange"
+        ) {
+
+            return "White/Orange";
+
+        }
+
+
+        if (
+            strongest === "green"
+        ) {
+
+            return "White/Green";
+
+        }
+
+
+        if (
+            strongest === "blue"
+        ) {
+
+            return "White/Blue";
+
+        }
+
+
+        if (
+            strongest === "brown"
+        ) {
+
+            return "White/Brown";
+
+        }
+
+    }
+
+
+    // =================================
+    // SOLID COLORS
+    // =================================
+
+    if (
+        colorRatio > 0.08
+    ) {
+
+
+        if (
+            strongest === "orange"
+        ) {
+
+            return "Orange";
+
+        }
+
+
+        if (
+            strongest === "green"
+        ) {
+
+            return "Green";
+
+        }
+
+
+        if (
+            strongest === "blue"
+        ) {
+
+            return "Blue";
+
+        }
+
+
+        if (
+            strongest === "brown"
+        ) {
+
+            return "Brown";
+
+        }
+
+    }
+
+
+    // Mostly white
+
+    if (
+        whiteRatio > 0.45
     ) {
 
         return "White";
-
-    }
-
-
-    // ====================================
-    // ORANGE
-    // ====================================
-
-    if (
-
-        red > 100 &&
-        red > green * 1.25 &&
-        red > blue * 1.35
-
-    ) {
-
-        return "Orange";
-
-    }
-
-
-    // ====================================
-    // GREEN
-    // ====================================
-
-    if (
-
-        green > red * 1.15 &&
-        green > blue * 1.10
-
-    ) {
-
-        return "Green";
-
-    }
-
-
-    // ====================================
-    // BLUE
-    // ====================================
-
-    if (
-
-        blue > red * 1.20 &&
-        blue > green * 1.10
-
-    ) {
-
-        return "Blue";
-
-    }
-
-
-    // ====================================
-    // BROWN
-    // ====================================
-
-    if (
-
-        red > blue * 1.20 &&
-        green > blue * 1.10 &&
-        red > green
-
-    ) {
-
-        return "Brown";
 
     }
 
@@ -824,7 +1367,7 @@ function detectColor(data) {
 // DISPLAY COLORS
 // ========================================
 
-function getDisplayColor(color) {
+function displayColor(color) {
 
 
     switch (color) {
@@ -850,29 +1393,29 @@ function getDisplayColor(color) {
             return "#795548";
 
 
-        case "White":
-
-            return "#ffffff";
-
-
         case "White/Orange":
 
-            return "#fff3e0";
+            return "#ffe0b2";
 
 
         case "White/Green":
 
-            return "#e8f5e9";
+            return "#c8e6c9";
 
 
         case "White/Blue":
 
-            return "#e3f2fd";
+            return "#bbdefb";
 
 
         case "White/Brown":
 
-            return "#efebe9";
+            return "#d7ccc8";
+
+
+        case "White":
+
+            return "#ffffff";
 
 
         default:
@@ -891,7 +1434,7 @@ function getDisplayColor(color) {
 function demoScan() {
 
 
-    const demoColors = [
+    const demo = [
 
         "White/Orange",
 
@@ -919,13 +1462,19 @@ function demoScan() {
     ) {
 
 
-        wireBoxes[i].textContent =
-            demoColors[i];
+        const box =
+            document.getElementById(
+                "pin" + (i + 1)
+            );
 
 
-        wireBoxes[i].style.background =
-            getDisplayColor(
-                demoColors[i]
+        box.textContent =
+            demo[i];
+
+
+        box.parentElement.style.background =
+            displayColor(
+                demo[i]
             );
 
     }
@@ -937,17 +1486,11 @@ function demoScan() {
 
     result.innerHTML =
 
-        "🧪 DEMO SCAN COMPLETE" +
+        "🧪 DEMO SCAN" +
 
         "<br><br>" +
 
-        "✅ T568B ORDER IS CORRECT" +
-
-        "<br><br>" +
-
-        demoColors.join(
-            " → "
-        );
+        "✅ T568B ORDER CORRECT";
 
 }
 
