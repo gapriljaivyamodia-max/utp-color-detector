@@ -6,9 +6,21 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
 <title>UTP Color Detector</title>
+
+<link rel="manifest" href="./manifest.json">
+
+<meta name="theme-color" content="#222222">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style"
+      content="black">
+
 
 <style>
 
@@ -28,24 +40,40 @@ body {
 
     padding: 15px;
 
+    color: #222;
+
 }
 
 h1 {
-
-    color: #222;
-
+    margin-bottom: 5px;
 }
 
 p {
 
     font-size: 15px;
 
+    line-height: 1.5;
+
+}
+
+#offlineStatus {
+
+    display: inline-block;
+
+    margin: 5px auto 10px;
+
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
 }
 
 
-/* =================================
-   CAMERA
-================================= */
+/* CAMERA */
 
 .camera-container {
 
@@ -55,11 +83,13 @@ p {
 
     max-width: 700px;
 
-    margin: auto;
+    margin: 40px auto 15px;
 
     overflow: hidden;
 
     border-radius: 12px;
+
+    background: black;
 
 }
 
@@ -74,19 +104,11 @@ p {
 }
 
 
-/* =================================
-   RJ45 SCAN AREA
-================================= */
+/* RJ45 FRAME */
 
 .rj45-frame {
 
     position: absolute;
-
-    /*
-       Move these values if necessary.
-       This is the area where the
-       transparent RJ45 should be placed.
-    */
 
     left: 25%;
 
@@ -104,14 +126,11 @@ p {
 
 }
 
-
-/* Text at top of scanning area */
-
 .frame-label {
 
     position: absolute;
 
-    top: -30px;
+    top: -32px;
 
     left: 0;
 
@@ -119,26 +138,30 @@ p {
 
     color: red;
 
+    font-size: 13px;
+
     font-weight: bold;
 
-    font-size: 13px;
+    background: rgba(255,255,255,0.8);
+
+    padding: 4px;
+
+    border-radius: 5px;
 
 }
 
 
-/* =================================
-   8 WIRE GUIDE LINES
-================================= */
+/* GUIDE LINES */
 
 .wire-guides {
 
     position: absolute;
 
-    left: 4%;
+    left: 2%;
 
-    right: 4%;
+    right: 2%;
 
-    top: 12%;
+    top: 5%;
 
     bottom: 5%;
 
@@ -147,7 +170,6 @@ p {
     justify-content: space-between;
 
 }
-
 
 .guide {
 
@@ -174,17 +196,56 @@ p {
 }
 
 
-/* =================================
-   BUTTONS
-================================= */
+/* CONTROLS */
+
+.camera-controls {
+
+    max-width: 700px;
+
+    margin: 15px auto;
+
+    padding: 15px;
+
+    background: white;
+
+    border-radius: 12px;
+
+}
+
+#zoomSlider {
+
+    width: 80%;
+
+    max-width: 400px;
+
+    margin: 10px;
+
+}
+
+.move-buttons button {
+
+    width: 55px;
+
+    height: 45px;
+
+    padding: 5px;
+
+    margin: 3px;
+
+    font-size: 18px;
+
+}
+
+
+/* BUTTONS */
 
 button {
 
-    margin: 10px 5px;
+    margin: 8px 4px;
 
     padding: 14px 20px;
 
-    font-size: 17px;
+    font-size: 16px;
 
     border: none;
 
@@ -198,7 +259,6 @@ button {
 
 }
 
-
 button:active {
 
     transform: scale(0.97);
@@ -206,9 +266,7 @@ button:active {
 }
 
 
-/* =================================
-   RESULTS
-================================= */
+/* RESULT */
 
 #result {
 
@@ -226,71 +284,18 @@ button:active {
 
     font-weight: bold;
 
+    line-height: 1.6;
+
 }
 
 
-/* =================================
-   PIN RESULTS
-================================= */
-<!-- =================================
-     CAMERA CONTROLS
-================================= -->
+/* PINS */
 
-<div class="camera-controls">
-
-    <h3>🎯 Adjust RJ45</h3>
-
-    <label>
-        🔍 Zoom:
-        <span id="zoomValue">1.0x</span>
-    </label>
-
-    <br>
-
-    <input
-        type="range"
-        id="zoomSlider"
-        min="1"
-        max="3"
-        step="0.1"
-        value="1"
-    >
-
-    <div class="move-buttons">
-
-        <button onclick="moveFrame(0, -2)">
-            ▲
-        </button>
-
-        <br>
-
-        <button onclick="moveFrame(-2, 0)">
-            ◀
-        </button>
-
-        <button onclick="resetFrame()">
-            🔄
-        </button>
-
-        <button onclick="moveFrame(2, 0)">
-            ▶
-        </button>
-
-        <br>
-
-        <button onclick="moveFrame(0, 2)">
-            ▼
-        </button>
-
-    </div>
-
-</div>
 .wires {
 
     display: grid;
 
-    grid-template-columns:
-        repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 
     gap: 8px;
 
@@ -299,7 +304,6 @@ button:active {
     margin: 15px auto;
 
 }
-
 
 .wire {
 
@@ -325,7 +329,6 @@ button:active {
 
 }
 
-
 .pin {
 
     font-weight: bold;
@@ -335,9 +338,7 @@ button:active {
 }
 
 
-/* =================================
-   T568B REFERENCE
-================================= */
+/* REFERENCE */
 
 .reference {
 
@@ -355,20 +356,14 @@ button:active {
 
 }
 
-
-.reference h3 {
-
-    margin-top: 0;
-
-}
-
-
 .reference ol {
 
     padding-left: 25px;
 
 }
 
+
+/* CANVAS */
 
 #canvas {
 
@@ -377,60 +372,26 @@ button:active {
 }
 
 
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+    .wires {
+
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+    button {
+
+        font-size: 15px;
+
+    }
+
+}
+
 </style>
-/* =================================
-   CAMERA CONTROLS
-================================= */
 
-.camera-controls {
-
-    max-width: 700px;
-
-    margin: 15px auto;
-
-    padding: 15px;
-
-    background: white;
-
-    border-radius: 12px;
-
-}
-
-.camera-controls h3 {
-
-    margin-top: 0;
-
-}
-
-#zoomSlider {
-
-    width: 80%;
-
-    max-width: 400px;
-
-    margin: 10px;
-
-}
-
-.move-buttons {
-
-    margin-top: 10px;
-
-}
-
-.move-buttons button {
-
-    width: 55px;
-
-    height: 45px;
-
-    padding: 5px;
-
-    margin: 3px;
-
-    font-size: 18px;
-
-}
 </head>
 
 
@@ -438,6 +399,11 @@ button:active {
 
 
 <h1>🔌 UTP Color Detector</h1>
+
+
+<div id="offlineStatus">
+    🌐 Checking connection...
+</div>
 
 
 <p>
@@ -452,12 +418,9 @@ Align the 8 wires with the 8 guide columns.
 </p>
 
 
-<!-- =================================
-     CAMERA
-================================= -->
+<!-- CAMERA -->
 
 <div class="camera-container">
-
 
     <video
         id="camera"
@@ -466,197 +429,162 @@ Align the 8 wires with the 8 guide columns.
     </video>
 
 
-    <!-- RJ45 TARGET -->
-
     <div class="rj45-frame">
 
         <div class="frame-label">
-
             RJ45 WIRE SCAN AREA
-
         </div>
 
 
         <div class="wire-guides">
 
             <div class="guide">1</div>
-
             <div class="guide">2</div>
-
             <div class="guide">3</div>
-
             <div class="guide">4</div>
-
             <div class="guide">5</div>
-
             <div class="guide">6</div>
-
             <div class="guide">7</div>
-
             <div class="guide">8</div>
 
         </div>
 
     </div>
 
+</div>
+
+
+<!-- CONTROLS -->
+
+<div class="camera-controls">
+
+    <h3>🎯 Adjust RJ45</h3>
+
+    <label>
+
+        🔍 Zoom:
+
+        <span id="zoomValue">
+            1.0x
+        </span>
+
+    </label>
+
+    <br>
+
+    <input
+        type="range"
+        id="zoomSlider"
+        min="1"
+        max="3"
+        step="0.1"
+        value="1">
+
+
+    <div class="move-buttons">
+
+        <button onclick="moveFrame(0,-2)">
+            ▲
+        </button>
+
+        <br>
+
+        <button onclick="moveFrame(-2,0)">
+            ◀
+        </button>
+
+        <button onclick="resetFrame()">
+            🔄
+        </button>
+
+        <button onclick="moveFrame(2,0)">
+            ▶
+        </button>
+
+        <br>
+
+        <button onclick="moveFrame(0,2)">
+            ▼
+        </button>
+
+    </div>
 
 </div>
 
 
-<!-- =================================
-     PIN RESULTS
-================================= -->
+<!-- PIN RESULTS -->
 
 <div class="wires">
 
+<script>
 
-    <div class="wire">
+for(let i=1;i<=8;i++){
 
-        <div class="pin">PIN 1</div>
-
-        <div id="pin1">
-            Waiting...
+    document.write(`
+        <div class="wire">
+            <div class="pin">PIN ${i}</div>
+            <div id="pin${i}">
+                Waiting...
+            </div>
         </div>
+    `);
 
-    </div>
+}
 
-
-    <div class="wire">
-
-        <div class="pin">PIN 2</div>
-
-        <div id="pin2">
-            Waiting...
-        </div>
-
-    </div>
-
-
-    <div class="wire">
-
-        <div class="pin">PIN 3</div>
-
-        <div id="pin3">
-            Waiting...
-        </div>
-
-    </div>
-
-
-    <div class="wire">
-
-        <div class="pin">PIN 4</div>
-
-        <div id="pin4">
-            Waiting...
-        </div>
-
-    </div>
-
-
-    <div class="wire">
-
-        <div class="pin">PIN 5</div>
-
-        <div id="pin5">
-            Waiting...
-        </div>
-
-    </div>
-
-
-    <div class="wire">
-
-        <div class="pin">PIN 6</div>
-
-        <div id="pin6">
-            Waiting...
-        </div>
-
-    </div>
-
-
-    <div class="wire">
-
-        <div class="pin">PIN 7</div>
-
-        <div id="pin7">
-            Waiting...
-        </div>
-
-    </div>
-
-
-    <div class="wire">
-
-        <div class="pin">PIN 8</div>
-
-        <div id="pin8">
-            Waiting...
-        </div>
-
-    </div>
-
+</script>
 
 </div>
 
 
-<!-- =================================
-     BUTTONS
-================================= -->
+<!-- BUTTONS -->
 
 <button onclick="checkCable()">
+    📷 CHECK RJ45
+</button>
 
-📷 CHECK RJ45
 
+<button onclick="enhanceAndScan()">
+    ✨ ENHANCE & SCAN
 </button>
 
 
 <button onclick="demoScan()">
-
-🧪 DEMO SCAN
-
+    🧪 DEMO SCAN
 </button>
 
 
-<!-- =================================
-     RESULT
-================================= -->
-
 <div id="result">
 
-📷 Starting camera...
+    📷 Starting camera...
 
 </div>
 
 
-<!-- =================================
-     T568B REFERENCE
-================================= -->
+<!-- T568B -->
 
 <div class="reference">
 
-<h3>📌 T568B Standard</h3>
+    <h3>📌 T568B Standard</h3>
 
-<ol>
+    <ol>
 
-<li>White/Orange</li>
+        <li>White/Orange</li>
 
-<li>Orange</li>
+        <li>Orange</li>
 
-<li>White/Green</li>
+        <li>White/Green</li>
 
-<li>Blue</li>
+        <li>Blue</li>
 
-<li>White/Blue</li>
+        <li>White/Blue</li>
 
-<li>Green</li>
+        <li>Green</li>
 
-<li>White/Brown</li>
+        <li>White/Brown</li>
 
-<li>Brown</li>
+        <li>Brown</li>
 
-</ol>
+    </ol>
 
 </div>
 
@@ -667,86 +595,107 @@ Align the 8 wires with the 8 guide columns.
 <script>
 
 
-// ========================================
+// =========================================
 // ELEMENTS
-// ========================================
+// =========================================
 
 const camera =
     document.getElementById("camera");
 
-
 const canvas =
     document.getElementById("canvas");
-
 
 const ctx =
     canvas.getContext("2d");
 
-
 const result =
     document.getElementById("result");
-
 
 const rj45Frame =
     document.querySelector(".rj45-frame");
 
+const zoomSlider =
+    document.getElementById("zoomSlider");
 
+const zoomValue =
+    document.getElementById("zoomValue");
+
+const offlineStatus =
+    document.getElementById("offlineStatus");
+
+
+// =========================================
 // T568B
+// =========================================
 
 const T568B = [
 
     "White/Orange",
-
     "Orange",
-
     "White/Green",
-
     "Blue",
-
     "White/Blue",
-
     "Green",
-
     "White/Brown",
-
     "Brown"
 
 ];
 
 
-// ========================================
-// START CAMERA
-// ========================================
+// =========================================
+// FRAME
+// =========================================
 
-async function startCamera() {
+let frameLeft = 25;
 
-    try {
+let frameTop = 25;
+
+
+// =========================================
+// CAMERA
+// =========================================
+
+async function startCamera(){
+
+    try{
+
+        if(
+            !navigator.mediaDevices ||
+            !navigator.mediaDevices.getUserMedia
+        ){
+
+            throw new Error(
+                "Camera unavailable"
+            );
+
+        }
+
 
         result.innerHTML =
-            "📷 Requesting camera permission...";
+            "📷 Starting camera...";
 
 
         const stream =
             await navigator.mediaDevices
             .getUserMedia({
 
-                video: {
+                video:{
 
-                    facingMode: {
-                        ideal: "environment"
+                    facingMode:{
+                        ideal:"environment"
                     },
 
-                    width: {
-                        ideal: 1280
+                    width:{
+                        ideal:1920
                     },
 
-                    height: {
-                        ideal: 720
+                    height:{
+                        ideal:1080
                     }
 
                 },
 
-                audio: false
+                audio:false
 
             });
 
@@ -763,18 +712,65 @@ async function startCamera() {
 
 
         result.innerHTML =
+            "🟢 CAMERA READY<br><br>" +
+            "Place the RJ45 inside the red frame.";
 
-            "🟢 CAMERA READY" +
 
-            "<br><br>" +
+        // Autofocus
 
-            "Place the RJ45 inside " +
-            "the red frame.";
+        const track =
+            stream.getVideoTracks()[0];
 
+
+        try{
+
+            const capabilities =
+                track.getCapabilities();
+
+
+            const advanced = {};
+
+
+            if(
+                capabilities.focusMode &&
+                capabilities.focusMode.includes(
+                    "continuous"
+                )
+            ){
+
+                advanced.focusMode =
+                    "continuous";
+
+            }
+
+
+            if(
+                Object.keys(advanced).length
+            ){
+
+                await track.applyConstraints({
+
+                    advanced:[
+                        advanced
+                    ]
+
+                });
+
+            }
+
+        }
+
+        catch(e){
+
+            console.log(
+                "Autofocus unavailable"
+            );
+
+        }
 
     }
 
-    catch (error) {
+    catch(error){
 
         console.error(error);
 
@@ -784,11 +780,7 @@ async function startCamera() {
 
 
         result.innerHTML =
-
-            "❌ CAMERA ERROR" +
-
-            "<br><br>" +
-
+            "❌ CAMERA ERROR<br><br>" +
             "Allow camera permission.";
 
     }
@@ -796,12 +788,11 @@ async function startCamera() {
 }
 
 
-// ========================================
-// GET FRAME POSITION
-// ========================================
+// =========================================
+// SCAN AREA
+// =========================================
 
-function getScanArea() {
-
+function getScanArea(){
 
     const videoRect =
         camera.getBoundingClientRect();
@@ -809,12 +800,6 @@ function getScanArea() {
 
     const frameRect =
         rj45Frame.getBoundingClientRect();
-
-
-    /*
-       Convert screen coordinates
-       into actual camera pixels.
-    */
 
 
     const scaleX =
@@ -827,57 +812,38 @@ function getScanArea() {
         videoRect.height;
 
 
-    const left =
-        (frameRect.left -
-        videoRect.left) *
-        scaleX;
+    return{
 
+        left:
+            (frameRect.left -
+            videoRect.left) *
+            scaleX,
 
-    const top =
-        (frameRect.top -
-        videoRect.top) *
-        scaleY;
+        top:
+            (frameRect.top -
+            videoRect.top) *
+            scaleY,
 
+        width:
+            frameRect.width *
+            scaleX,
 
-    const width =
-        frameRect.width *
-        scaleX;
-
-
-    const height =
-        frameRect.height *
-        scaleY;
-
-
-    return {
-
-        left,
-        top,
-        width,
-        height
+        height:
+            frameRect.height *
+            scaleY
 
     };
 
 }
 
 
-// ========================================
-// CHECK RJ45
-// ========================================
+// =========================================
+// CHECK
+// =========================================
 
-function checkCable() {
+function checkCable(){
 
-
-    if (
-
-        !camera.videoWidth ||
-        !camera.videoHeight
-
-    ) {
-
-        result.style.color =
-            "red";
-
+    if(!camera.videoWidth){
 
         result.innerHTML =
             "❌ Camera is not ready.";
@@ -887,7 +853,49 @@ function checkCable() {
     }
 
 
-    // Canvas
+    canvas.width =
+        camera.videoWidth;
+
+
+    canvas.height =
+        camera.videoHeight;
+
+
+    ctx.drawImage(
+        camera,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    result.innerHTML =
+        "🔍 ANALYZING WIRES...";
+
+
+    scanArea(
+        getScanArea()
+    );
+
+}
+
+
+// =========================================
+// ENHANCE
+// =========================================
+
+function enhanceAndScan(){
+
+    if(!camera.videoWidth){
+
+        result.innerHTML =
+            "❌ Camera is not ready.";
+
+        return;
+
+    }
+
 
     canvas.width =
         camera.videoWidth;
@@ -897,20 +905,12 @@ function checkCable() {
         camera.videoHeight;
 
 
-    // Capture image
-
     ctx.drawImage(
-
         camera,
-
         0,
-
         0,
-
         canvas.width,
-
         canvas.height
-
     );
 
 
@@ -918,80 +918,157 @@ function checkCable() {
         getScanArea();
 
 
-    result.style.color =
-        "black";
+    const image =
+        ctx.getImageData(
+
+            Math.floor(area.left),
+            Math.floor(area.top),
+            Math.floor(area.width),
+            Math.floor(area.height)
+
+        );
+
+
+    enhanceImage(
+        image.data
+    );
+
+
+    ctx.putImageData(
+
+        image,
+
+        Math.floor(area.left),
+        Math.floor(area.top)
+
+    );
 
 
     result.innerHTML =
-        "🔍 ANALYZING RJ45 WIRES...";
+        "✨ ENHANCED<br><br>Scanning...";
 
 
-    const detected =
-        [];
+    scanArea(area);
+
+}
 
 
-    // ====================================
-    // SCAN 8 PIN POSITIONS
-    // ====================================
+// =========================================
+// IMAGE ENHANCEMENT
+// =========================================
 
-    for (
-        let i = 0;
-        i < 8;
+function enhanceImage(data){
+
+    const contrast =
+        1.25;
+
+
+    for(
+        let i=0;
+        i<data.length;
+        i+=4
+    ){
+
+        let r=data[i];
+
+        let g=data[i+1];
+
+        let b=data[i+2];
+
+
+        r =
+            ((r-128)*
+            contrast)+128;
+
+        g =
+            ((g-128)*
+            contrast)+128;
+
+        b =
+            ((b-128)*
+            contrast)+128;
+
+
+        r+=5;
+        g+=5;
+        b+=5;
+
+
+        data[i]=
+            Math.max(
+                0,
+                Math.min(255,r)
+            );
+
+
+        data[i+1]=
+            Math.max(
+                0,
+                Math.min(255,g)
+            );
+
+
+        data[i+2]=
+            Math.max(
+                0,
+                Math.min(255,b)
+            );
+
+    }
+
+}
+
+
+// =========================================
+// SCAN
+// =========================================
+
+function scanArea(area){
+
+    const detected=[];
+
+
+    for(
+        let i=0;
+        i<8;
         i++
-    ) {
-
-
-        /*
-           Calculate horizontal position
-           of each wire.
-        */
-
+    ){
 
         const centerX =
 
             area.left +
 
             area.width *
-            (
-                (i + 0.5) / 8
-            );
-
-
-        /*
-           Don't scan the very top,
-           because the metal contacts
-           can interfere with color.
-        */
+            ((i+0.5)/8);
 
 
         const startY =
 
             area.top +
-            area.height * 0.25;
+            area.height*0.20;
 
 
         const scanHeight =
 
-            area.height * 0.55;
+            area.height*0.60;
 
 
         const sampleWidth =
 
             Math.max(
-                5,
-                area.width * 0.07
+                8,
+                area.width*0.08
             );
 
 
         const imageData =
-
             ctx.getImageData(
 
                 Math.max(
                     0,
                     Math.floor(
                         centerX -
-                        sampleWidth / 2
+                        sampleWidth/2
                     )
                 ),
 
@@ -1011,332 +1088,178 @@ function checkCable() {
             );
 
 
-        const wireColor =
-
+        const color =
             detectWireColor(
                 imageData.data
             );
 
 
-        detected.push(
-            wireColor
-        );
+        detected.push(color);
 
-
-        // Show result
 
         const box =
             document.getElementById(
-                "pin" + (i + 1)
+                "pin"+(i+1)
             );
 
 
         box.textContent =
-            wireColor;
+            color;
 
 
         box.parentElement.style.background =
-            displayColor(
-                wireColor
-            );
+            displayColor(color);
 
     }
 
 
-    // ====================================
-    // COMPARE WITH T568B
-    // ====================================
-
-    let correct = true;
-
-    const errors = [];
-
-
-    for (
-        let i = 0;
-        i < 8;
-        i++
-    ) {
-
-
-        if (
-            detected[i] !==
-            T568B[i]
-        ) {
-
-            correct = false;
-
-
-            errors.push(
-
-                "Pin " +
-                (i + 1) +
-
-                ": Expected " +
-
-                T568B[i] +
-
-                ", detected " +
-
-                detected[i]
-
-            );
-
-        }
-
-    }
-
-
-    // ====================================
-    // CORRECT
-    // ====================================
-
-    if (correct) {
-
-        result.style.color =
-            "green";
-
-
-        result.innerHTML =
-
-            "✅ T568B ORDER CORRECT!" +
-
-            "<br><br>" +
-
-            detected.join(
-                " → "
-            );
-
-    }
-
-
-    // ====================================
-    // WRONG
-    // ====================================
-
-    else {
-
-        result.style.color =
-            "red";
-
-
-        result.innerHTML =
-
-            "❌ WRONG WIRE ORDER" +
-
-            "<br><br>" +
-
-            errors.join(
-                "<br>"
-            );
-
-    }
+    compareT568B(
+        detected
+    );
 
 }
 
 
-// ========================================
+// =========================================
 // COLOR DETECTION
-// ========================================
+// =========================================
 
-function detectWireColor(data) {
+function detectWireColor(data){
 
+    let orange=0;
 
-    let coloredPixels = {
+    let green=0;
 
-        orange: 0,
+    let blue=0;
 
-        green: 0,
+    let brown=0;
 
-        blue: 0,
+    let white=0;
 
-        brown: 0
-
-    };
-
-
-    let whitePixels = 0;
-
-    let total = 0;
+    let total=0;
 
 
-    /*
-       Analyze every pixel in
-       the wire sample.
-    */
+    for(
+        let i=0;
+        i<data.length;
+        i+=4
+    ){
 
-    for (
-        let i = 0;
-        i < data.length;
-        i += 4
-    ) {
+        const r=data[i];
 
+        const g=data[i+1];
 
-        const r =
-            data[i];
-
-
-        const g =
-            data[i + 1];
-
-
-        const b =
-            data[i + 2];
+        const b=data[i+2];
 
 
         total++;
 
 
-        // Brightness
-
         const brightness =
-            (r + g + b) / 3;
+            (r+g+b)/3;
 
-
-        // Saturation
 
         const max =
-            Math.max(
-                r,
-                g,
-                b
-            );
+            Math.max(r,g,b);
 
 
         const min =
-            Math.min(
-                r,
-                g,
-                b
-            );
+            Math.min(r,g,b);
 
 
         const saturation =
-            max === 0
-            ? 0
-            : (max - min) / max;
+            max===0
+            ?0
+            :(max-min)/max;
 
 
-        // =================================
-        // WHITE
-        // =================================
+        if(
+            brightness>125 &&
+            saturation<0.30
+        ){
 
-        if (
-
-            brightness > 130 &&
-            saturation < 0.28
-
-        ) {
-
-            whitePixels++;
+            white++;
 
         }
 
 
-        // Ignore very dark pixels
-
-        if (
-            brightness < 45
-        ) {
+        if(
+            brightness<40
+        ){
 
             continue;
 
         }
 
 
-        // =================================
-        // ORANGE
-        // =================================
+        if(
+            r>g*1.15 &&
+            r>b*1.30 &&
+            g>b*1.03
+        ){
 
-        if (
-
-            r > g * 1.15 &&
-            r > b * 1.35 &&
-            g > b * 1.05
-
-        ) {
-
-            coloredPixels.orange++;
+            orange++;
 
         }
 
+        else if(
+            g>r*1.12 &&
+            g>b*1.05
+        ){
 
-        // =================================
-        // GREEN
-        // =================================
-
-        else if (
-
-            g > r * 1.12 &&
-            g > b * 1.05
-
-        ) {
-
-            coloredPixels.green++;
+            green++;
 
         }
 
+        else if(
+            b>r*1.18 &&
+            b>g*1.05
+        ){
 
-        // =================================
-        // BLUE
-        // =================================
-
-        else if (
-
-            b > r * 1.18 &&
-            b > g * 1.05
-
-        ) {
-
-            coloredPixels.blue++;
+            blue++;
 
         }
 
+        else if(
+            r>g &&
+            g>b &&
+            r>b*1.20
+        ){
 
-        // =================================
-        // BROWN
-        // =================================
-
-        else if (
-
-            r > g &&
-            g > b &&
-            r > b * 1.25
-
-        ) {
-
-            coloredPixels.brown++;
+            brown++;
 
         }
 
     }
 
 
-    /*
-       Find strongest colored signal.
-    */
+    const colors={
 
-    let strongest =
-        "Unknown";
+        orange,
+        green,
+        blue,
+        brown
 
-
-    let highest =
-        0;
+    };
 
 
-    for (
-        const color in coloredPixels
-    ) {
+    let strongest="unknown";
 
-        if (
-            coloredPixels[color]
-            > highest
-        ) {
+    let highest=0;
 
-            highest =
-                coloredPixels[color];
 
-            strongest =
+    for(
+        const color in colors
+    ){
+
+        if(
+            colors[color]>highest
+        ){
+
+            highest=
+                colors[color];
+
+            strongest=
                 color;
 
         }
@@ -1344,118 +1267,56 @@ function detectWireColor(data) {
     }
 
 
-    /*
-       Convert to percentage.
-    */
-
     const colorRatio =
-        highest / total;
+        highest/total;
 
 
     const whiteRatio =
-        whitePixels / total;
+        white/total;
 
 
-    // =================================
-    // WHITE + COLORED STRIPE
-    // =================================
+    if(
+        whiteRatio>0.20 &&
+        colorRatio>0.012
+    ){
 
-    if (
-        whiteRatio > 0.25 &&
-        colorRatio > 0.015
-    ) {
-
-
-        if (
-            strongest === "orange"
-        ) {
-
+        if(strongest==="orange")
             return "White/Orange";
 
-        }
-
-
-        if (
-            strongest === "green"
-        ) {
-
+        if(strongest==="green")
             return "White/Green";
 
-        }
-
-
-        if (
-            strongest === "blue"
-        ) {
-
+        if(strongest==="blue")
             return "White/Blue";
 
-        }
-
-
-        if (
-            strongest === "brown"
-        ) {
-
+        if(strongest==="brown")
             return "White/Brown";
 
-        }
-
     }
 
 
-    // =================================
-    // SOLID COLORS
-    // =================================
+    if(
+        colorRatio>0.06
+    ){
 
-    if (
-        colorRatio > 0.08
-    ) {
-
-
-        if (
-            strongest === "orange"
-        ) {
-
+        if(strongest==="orange")
             return "Orange";
 
-        }
-
-
-        if (
-            strongest === "green"
-        ) {
-
+        if(strongest==="green")
             return "Green";
 
-        }
-
-
-        if (
-            strongest === "blue"
-        ) {
-
+        if(strongest==="blue")
             return "Blue";
 
-        }
-
-
-        if (
-            strongest === "brown"
-        ) {
-
+        if(strongest==="brown")
             return "Brown";
-
-        }
 
     }
 
 
-    // Mostly white
-
-    if (
-        whiteRatio > 0.45
-    ) {
+    if(
+        whiteRatio>0.40
+    ){
 
         return "White";
 
@@ -1467,63 +1328,126 @@ function detectWireColor(data) {
 }
 
 
-// ========================================
-// DISPLAY COLORS
-// ========================================
+// =========================================
+// COMPARE
+// =========================================
 
-function displayColor(color) {
+function compareT568B(detected){
+
+    const errors=[];
 
 
-    switch (color) {
+    for(
+        let i=0;
+        i<8;
+        i++
+    ){
 
+        if(
+            detected[i]!==T568B[i]
+        ){
+
+            errors.push({
+
+                pin:i+1,
+
+                expected:T568B[i],
+
+                detected:detected[i]
+
+            });
+
+        }
+
+    }
+
+
+    if(
+        errors.length===0
+    ){
+
+        result.style.color =
+            "green";
+
+
+        result.innerHTML =
+            "✅ T568B ORDER CORRECT!<br><br>" +
+            detected.join(" → ");
+
+
+        return;
+
+    }
+
+
+    result.style.color =
+        "red";
+
+
+    let message =
+        "❌ WRONG WIRE ORDER<br><br>";
+
+
+    errors.forEach(
+        function(error){
+
+            message +=
+
+                "📍 Pin "+
+                error.pin+
+                ": Expected <b>"+
+                error.expected+
+                "</b><br>"+
+                "Detected: <b>"+
+                error.detected+
+                "</b><br><br>";
+
+        }
+    );
+
+
+    result.innerHTML =
+        message;
+
+}
+
+
+// =========================================
+// COLOR DISPLAY
+// =========================================
+
+function displayColor(color){
+
+    switch(color){
 
         case "Orange":
-
             return "#ff9800";
 
-
         case "Green":
-
             return "#4caf50";
 
-
         case "Blue":
-
             return "#2196f3";
 
-
         case "Brown":
-
             return "#795548";
 
-
         case "White/Orange":
-
             return "#ffe0b2";
 
-
         case "White/Green":
-
             return "#c8e6c9";
 
-
         case "White/Blue":
-
             return "#bbdefb";
 
-
         case "White/Brown":
-
             return "#d7ccc8";
 
-
         case "White":
-
             return "#ffffff";
 
-
         default:
-
             return "#dddddd";
 
     }
@@ -1531,44 +1455,35 @@ function displayColor(color) {
 }
 
 
-// ========================================
-// DEMO SCAN
-// ========================================
+// =========================================
+// DEMO
+// =========================================
 
-function demoScan() {
+function demoScan(){
 
-
-    const demo = [
+    const demo=[
 
         "White/Orange",
-
         "Orange",
-
         "White/Green",
-
         "Blue",
-
         "White/Blue",
-
         "Green",
-
         "White/Brown",
-
         "Brown"
 
     ];
 
 
-    for (
-        let i = 0;
-        i < 8;
+    for(
+        let i=0;
+        i<8;
         i++
-    ) {
-
+    ){
 
         const box =
             document.getElementById(
-                "pin" + (i + 1)
+                "pin"+(i+1)
             );
 
 
@@ -1589,52 +1504,34 @@ function demoScan() {
 
 
     result.innerHTML =
-
-        "🧪 DEMO SCAN" +
-
-        "<br><br>" +
-
+        "🧪 DEMO SCAN COMPLETE<br><br>" +
         "✅ T568B ORDER CORRECT";
 
 }
-// ========================================
-// MANUAL FRAME POSITION
-// ========================================
-
-let frameLeft = 25;
-let frameTop = 25;
 
 
-// ========================================
-// MOVE RJ45 SCANNING FRAME
-// ========================================
+// =========================================
+// MOVE FRAME
+// =========================================
 
-function moveFrame(x, y) {
+function moveFrame(x,y){
 
-    frameLeft += x;
+    frameLeft+=x;
 
-    frameTop += y;
+    frameTop+=y;
 
-
-    // Keep frame inside camera
 
     frameLeft =
         Math.max(
             0,
-            Math.min(
-                frameLeft,
-                100 - 50
-            )
+            Math.min(frameLeft,50)
         );
 
 
     frameTop =
         Math.max(
             0,
-            Math.min(
-                frameTop,
-                100 - 45
-            )
+            Math.min(frameTop,55)
         );
 
 
@@ -1643,155 +1540,11 @@ function moveFrame(x, y) {
 }
 
 
-// ========================================
+// =========================================
 // UPDATE FRAME
-// ========================================
+// =========================================
 
-function updateFrame() {
+function updateFrame(){
 
     rj45Frame.style.left =
-        frameLeft + "%";
-
-    rj45Frame.style.top =
-        frameTop + "%";
-
-}
-
-
-// ========================================
-// RESET FRAME
-// ========================================
-
-function resetFrame() {
-
-    frameLeft = 25;
-
-    frameTop = 25;
-
-    updateFrame();
-
-}
-// ========================================
-// CAMERA ZOOM
-// ========================================
-
-const zoomSlider =
-    document.getElementById("zoomSlider");
-
-const zoomValue =
-    document.getElementById("zoomValue");
-
-
-zoomSlider.addEventListener(
-    "input",
-    async function () {
-
-        const zoom =
-            parseFloat(
-                zoomSlider.value
-            );
-
-
-        zoomValue.textContent =
-            zoom.toFixed(1) + "x";
-
-
-        const stream =
-            camera.srcObject;
-
-
-        if (!stream) {
-
-            return;
-
-        }
-
-
-        const tracks =
-            stream.getVideoTracks();
-
-
-        if (!tracks.length) {
-
-            return;
-
-        }
-
-
-        const track =
-            tracks[0];
-
-
-        try {
-
-            const capabilities =
-                track.getCapabilities();
-
-
-            /*
-             Check whether the phone
-             camera supports hardware zoom.
-            */
-
-            if (
-                capabilities.zoom
-            ) {
-
-                const min =
-                    capabilities.zoom.min;
-
-                const max =
-                    capabilities.zoom.max;
-
-
-                const cameraZoom =
-
-                    min +
-
-                    (
-                        (zoom - 1) / 2
-                    ) *
-
-                    (max - min);
-
-
-                await track.applyConstraints({
-
-                    advanced: [
-
-                        {
-                            zoom:
-                                cameraZoom
-                        }
-
-                    ]
-
-                });
-
-            }
-
-        }
-
-        catch (error) {
-
-            console.log(
-                "Hardware zoom unavailable"
-            );
-
-        }
-
-    }
-);
-
-// ========================================
-// START
-// ========================================
-
-startCamera();
-
-
-</script>
-
-</body>
-
-</html>
+        fra
