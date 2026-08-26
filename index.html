@@ -232,7 +232,59 @@ button:active {
 /* =================================
    PIN RESULTS
 ================================= */
+<!-- =================================
+     CAMERA CONTROLS
+================================= -->
 
+<div class="camera-controls">
+
+    <h3>🎯 Adjust RJ45</h3>
+
+    <label>
+        🔍 Zoom:
+        <span id="zoomValue">1.0x</span>
+    </label>
+
+    <br>
+
+    <input
+        type="range"
+        id="zoomSlider"
+        min="1"
+        max="3"
+        step="0.1"
+        value="1"
+    >
+
+    <div class="move-buttons">
+
+        <button onclick="moveFrame(0, -2)">
+            ▲
+        </button>
+
+        <br>
+
+        <button onclick="moveFrame(-2, 0)">
+            ◀
+        </button>
+
+        <button onclick="resetFrame()">
+            🔄
+        </button>
+
+        <button onclick="moveFrame(2, 0)">
+            ▶
+        </button>
+
+        <br>
+
+        <button onclick="moveFrame(0, 2)">
+            ▼
+        </button>
+
+    </div>
+
+</div>
 .wires {
 
     display: grid;
@@ -326,7 +378,59 @@ button:active {
 
 
 </style>
+/* =================================
+   CAMERA CONTROLS
+================================= */
 
+.camera-controls {
+
+    max-width: 700px;
+
+    margin: 15px auto;
+
+    padding: 15px;
+
+    background: white;
+
+    border-radius: 12px;
+
+}
+
+.camera-controls h3 {
+
+    margin-top: 0;
+
+}
+
+#zoomSlider {
+
+    width: 80%;
+
+    max-width: 400px;
+
+    margin: 10px;
+
+}
+
+.move-buttons {
+
+    margin-top: 10px;
+
+}
+
+.move-buttons button {
+
+    width: 55px;
+
+    height: 45px;
+
+    padding: 5px;
+
+    margin: 3px;
+
+    font-size: 18px;
+
+}
 </head>
 
 
@@ -1493,7 +1597,191 @@ function demoScan() {
         "✅ T568B ORDER CORRECT";
 
 }
+// ========================================
+// MANUAL FRAME POSITION
+// ========================================
 
+let frameLeft = 25;
+let frameTop = 25;
+
+
+// ========================================
+// MOVE RJ45 SCANNING FRAME
+// ========================================
+
+function moveFrame(x, y) {
+
+    frameLeft += x;
+
+    frameTop += y;
+
+
+    // Keep frame inside camera
+
+    frameLeft =
+        Math.max(
+            0,
+            Math.min(
+                frameLeft,
+                100 - 50
+            )
+        );
+
+
+    frameTop =
+        Math.max(
+            0,
+            Math.min(
+                frameTop,
+                100 - 45
+            )
+        );
+
+
+    updateFrame();
+
+}
+
+
+// ========================================
+// UPDATE FRAME
+// ========================================
+
+function updateFrame() {
+
+    rj45Frame.style.left =
+        frameLeft + "%";
+
+    rj45Frame.style.top =
+        frameTop + "%";
+
+}
+
+
+// ========================================
+// RESET FRAME
+// ========================================
+
+function resetFrame() {
+
+    frameLeft = 25;
+
+    frameTop = 25;
+
+    updateFrame();
+
+}
+// ========================================
+// CAMERA ZOOM
+// ========================================
+
+const zoomSlider =
+    document.getElementById("zoomSlider");
+
+const zoomValue =
+    document.getElementById("zoomValue");
+
+
+zoomSlider.addEventListener(
+    "input",
+    async function () {
+
+        const zoom =
+            parseFloat(
+                zoomSlider.value
+            );
+
+
+        zoomValue.textContent =
+            zoom.toFixed(1) + "x";
+
+
+        const stream =
+            camera.srcObject;
+
+
+        if (!stream) {
+
+            return;
+
+        }
+
+
+        const tracks =
+            stream.getVideoTracks();
+
+
+        if (!tracks.length) {
+
+            return;
+
+        }
+
+
+        const track =
+            tracks[0];
+
+
+        try {
+
+            const capabilities =
+                track.getCapabilities();
+
+
+            /*
+             Check whether the phone
+             camera supports hardware zoom.
+            */
+
+            if (
+                capabilities.zoom
+            ) {
+
+                const min =
+                    capabilities.zoom.min;
+
+                const max =
+                    capabilities.zoom.max;
+
+
+                const cameraZoom =
+
+                    min +
+
+                    (
+                        (zoom - 1) / 2
+                    ) *
+
+                    (max - min);
+
+
+                await track.applyConstraints({
+
+                    advanced: [
+
+                        {
+                            zoom:
+                                cameraZoom
+                        }
+
+                    ]
+
+                });
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.log(
+                "Hardware zoom unavailable"
+            );
+
+        }
+
+    }
+);
 
 // ========================================
 // START
