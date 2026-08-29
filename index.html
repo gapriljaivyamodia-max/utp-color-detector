@@ -1547,4 +1547,201 @@ function moveFrame(x,y){
 function updateFrame(){
 
     rj45Frame.style.left =
-        fra
+        frameLeft+"%";
+
+    rj45Frame.style.top =
+        frameTop+"%";
+
+}
+
+
+// =========================================
+// RESET
+// =========================================
+
+function resetFrame(){
+
+    frameLeft=25;
+
+    frameTop=25;
+
+    updateFrame();
+
+}
+
+
+// =========================================
+// ZOOM
+// =========================================
+
+zoomSlider.addEventListener(
+    "input",
+    async function(){
+
+        const zoom =
+            parseFloat(
+                zoomSlider.value
+            );
+
+
+        zoomValue.textContent =
+            zoom.toFixed(1)+"x";
+
+
+        const stream =
+            camera.srcObject;
+
+
+        if(!stream)
+            return;
+
+
+        const track =
+            stream.getVideoTracks()[0];
+
+
+        try{
+
+            const capabilities =
+                track.getCapabilities();
+
+
+            if(capabilities.zoom){
+
+                const min =
+                    capabilities.zoom.min;
+
+                const max =
+                    capabilities.zoom.max;
+
+
+                const cameraZoom =
+
+                    min+
+                    ((zoom-1)/2)*
+                    (max-min);
+
+
+                await track.applyConstraints({
+
+                    advanced:[
+                        {
+                            zoom:cameraZoom
+                        }
+                    ]
+
+                });
+
+            }
+
+        }
+
+        catch(error){
+
+            console.log(
+                "Hardware zoom unavailable"
+            );
+
+        }
+
+    }
+);
+
+
+// =========================================
+// ONLINE / OFFLINE STATUS
+// =========================================
+
+function updateConnectionStatus(){
+
+    if(navigator.onLine){
+
+        offlineStatus.textContent =
+            "🌐 ONLINE";
+
+        offlineStatus.style.background =
+            "#d4edda";
+
+        offlineStatus.style.color =
+            "#155724";
+
+    }
+
+    else{
+
+        offlineStatus.textContent =
+            "📴 OFFLINE MODE";
+
+        offlineStatus.style.background =
+            "#fff3cd";
+
+        offlineStatus.style.color =
+            "#856404";
+
+    }
+
+}
+
+
+window.addEventListener(
+    "online",
+    updateConnectionStatus
+);
+
+
+window.addEventListener(
+    "offline",
+    updateConnectionStatus
+);
+
+
+updateConnectionStatus();
+
+
+// =========================================
+// SERVICE WORKER
+// =========================================
+
+if(
+    "serviceWorker" in navigator
+){
+
+    window.addEventListener(
+        "load",
+        function(){
+
+            navigator.serviceWorker
+                .register("./sw.js")
+                .then(function(){
+
+                    console.log(
+                        "✅ Offline mode enabled"
+                    );
+
+                })
+                .catch(function(error){
+
+                    console.log(
+                        "❌ Offline mode error:",
+                        error
+                    );
+
+                });
+
+        }
+    );
+
+}
+
+
+// =========================================
+// START
+// =========================================
+
+startCamera();
+
+</script>
+
+</body>
+
+</html>
