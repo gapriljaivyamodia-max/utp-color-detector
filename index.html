@@ -21,37 +21,67 @@
 }
 
 body {
-    margin: 0;
-    padding: 15px;
-    background: #f2f2f2;
-    color: #222;
+
     font-family: Arial, sans-serif;
+
     text-align: center;
+
+    background: #f2f2f2;
+
+    margin: 0;
+
+    padding: 15px;
+
+    color: #222;
 }
 
 h1 {
-    margin: 10px 0;
+
+    margin-bottom: 5px;
+
     font-size: 32px;
 }
 
 p {
-    font-size: 16px;
+
+    font-size: 15px;
+
     line-height: 1.5;
 }
 
 
 /* =========================================
-   STATUS
+   CONNECTION STATUS
 ========================================= */
 
-#connection {
+#connectionStatus {
+
     display: inline-block;
+
+    margin: 10px auto 20px;
+
     padding: 10px 18px;
-    border-radius: 30px;
-    background: #d9f7df;
-    color: #16752d;
+
+    border-radius: 25px;
+
     font-weight: bold;
-    margin: 5px 0 15px;
+
+    background: #eee;
+
+}
+
+.online {
+
+    color: #176b2c;
+
+    background: #dff5e5 !important;
+}
+
+.offline {
+
+    color: #8a1c1c;
+
+    background: #ffe0e0 !important;
 }
 
 
@@ -60,151 +90,127 @@ p {
 ========================================= */
 
 .camera-container {
+
     position: relative;
+
     width: 100%;
+
     max-width: 700px;
-    margin: 25px auto 15px;
-    background: black;
-    border-radius: 15px;
+
+    margin: 40px auto 15px;
+
     overflow: hidden;
+
+    border-radius: 12px;
+
+    background: black;
 }
 
 #camera {
-    display: block;
+
     width: 100%;
-    height: auto;
-    min-height: 300px;
+
+    display: block;
+
     background: black;
 }
 
 
 /* =========================================
-   RJ45 FRAME
+   RJ45 SCANNING FRAME
 ========================================= */
 
 .rj45-frame {
 
     position: absolute;
 
-    /*
-       Smaller and wider frame.
-       This is closer to the shape
-       shown in your second photo.
-    */
+    left: 18%;
 
-    left: 23%;
-    top: 31%;
+    top: 35%;
 
-    width: 54%;
-    height: 38%;
+    width: 64%;
 
-    border: 4px solid red;
+    height: 30%;
 
-    border-radius: 14px;
+    border: 3px solid red;
+
+    border-radius: 10px;
 
     pointer-events: none;
 
-    box-shadow:
-        0 0 0 2px rgba(255,255,255,0.2),
-        0 0 15px rgba(255,0,0,0.25);
-
+    transition: all 0.2s ease;
 }
 
-
-/* =========================================
-   FRAME LABEL
-========================================= */
 
 .frame-label {
 
     position: absolute;
 
-    top: -39px;
+    top: -38px;
 
-    left: 50%;
+    left: 0;
 
-    transform:
-        translateX(-50%);
-
-    white-space: nowrap;
-
-    background: rgba(255,255,255,0.9);
+    width: 100%;
 
     color: red;
-
-    padding: 6px 12px;
-
-    border-radius: 8px;
 
     font-size: 13px;
 
     font-weight: bold;
 
+    background: rgba(255,255,255,0.9);
+
+    padding: 5px;
+
+    border-radius: 5px;
 }
 
 
 /* =========================================
-   PIN GUIDES
+   8 PIN GUIDE COLUMNS
 ========================================= */
 
 .wire-guides {
 
     position: absolute;
 
-    left: 2%;
-    right: 2%;
+    left: 3%;
 
-    top: 5%;
-    bottom: 4%;
+    right: 3%;
+
+    top: 8%;
+
+    bottom: 8%;
 
     display: grid;
 
     grid-template-columns:
         repeat(8, 1fr);
 
+    gap: 2px;
 }
-
 
 .guide {
 
-    position: relative;
-
-    border-left:
-        2px dashed rgba(255,0,0,0.75);
-
-    border-right:
-        2px dashed rgba(255,0,0,0.75);
-
     height: 100%;
 
-}
+    border-left:
+        2px dashed rgba(255,0,0,0.8);
 
+    border-right:
+        2px dashed rgba(255,0,0,0.8);
 
-/* Pin number */
+    display: flex;
 
-.guide-number {
+    align-items: flex-start;
 
-    position: absolute;
-
-    top: -1px;
-
-    left: 50%;
-
-    transform:
-        translateX(-50%);
+    justify-content: center;
 
     color: red;
 
-    font-size: 13px;
-
     font-weight: bold;
 
-    background: rgba(0,0,0,0.55);
-
-    padding: 2px 5px;
-
-    border-radius: 4px;
-
+    font-size: 11px;
 }
 
 
@@ -218,69 +224,31 @@ p {
 
     margin: 15px auto;
 
-    padding: 18px;
+    padding: 15px;
 
     background: white;
 
-    border-radius: 15px;
-
+    border-radius: 12px;
 }
 
-
-.camera-controls h2 {
+.camera-controls h3 {
 
     margin-top: 0;
-
 }
-
 
 #zoomSlider {
 
     width: 80%;
 
-    max-width: 450px;
+    max-width: 400px;
 
-    margin: 12px;
-
+    margin: 10px;
 }
 
+.move-buttons {
 
-/* =========================================
-   BUTTONS
-========================================= */
-
-button {
-
-    margin: 7px 4px;
-
-    padding: 14px 20px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    background: #222;
-
-    color: white;
-
-    font-size: 16px;
-
-    cursor: pointer;
-
+    margin-top: 10px;
 }
-
-
-button:active {
-
-    transform:
-        scale(0.97);
-
-}
-
-
-/* =========================================
-   MOVE BUTTONS
-========================================= */
 
 .move-buttons button {
 
@@ -290,8 +258,62 @@ button:active {
 
     padding: 5px;
 
+    margin: 3px;
+
+    font-size: 18px;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+button {
+
+    margin: 8px 4px;
+
+    padding: 14px 20px;
+
+    font-size: 16px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #222;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+button:active {
+
+    transform: scale(0.97);
+}
+
+
+/* =========================================
+   RESULT
+========================================= */
+
+#result {
+
+    max-width: 700px;
+
+    margin: 20px auto;
+
+    padding: 20px;
+
+    background: white;
+
+    border-radius: 12px;
+
     font-size: 18px;
 
+    font-weight: bold;
+
+    line-height: 1.6;
 }
 
 
@@ -310,10 +332,8 @@ button:active {
 
     max-width: 700px;
 
-    margin: 18px auto;
-
+    margin: 15px auto;
 }
-
 
 .wire {
 
@@ -321,11 +341,11 @@ button:active {
 
     padding: 8px;
 
-    background: white;
-
     border: 2px solid #333;
 
-    border-radius: 10px;
+    border-radius: 8px;
+
+    background: white;
 
     display: flex;
 
@@ -335,51 +355,18 @@ button:active {
 
     justify-content: center;
 
+    font-size: 12px;
+
+    transition: 0.2s;
 }
 
-
 .pin {
-
-    font-size: 16px;
 
     font-weight: bold;
 
     margin-bottom: 5px;
 
-}
-
-
-.pin-result {
-
-    font-size: 13px;
-
-    line-height: 1.3;
-
-}
-
-
-/* =========================================
-   RESULT
-========================================= */
-
-#result {
-
-    max-width: 700px;
-
-    margin: 20px auto;
-
-    padding: 20px;
-
-    background: white;
-
-    border-radius: 15px;
-
-    font-size: 18px;
-
-    font-weight: bold;
-
-    line-height: 1.6;
-
+    font-size: 16px;
 }
 
 
@@ -393,39 +380,33 @@ button:active {
 
     margin: 20px auto;
 
-    padding: 18px;
-
     background: white;
 
-    border-radius: 15px;
+    border-radius: 12px;
+
+    padding: 15px;
 
     text-align: left;
-
 }
-
 
 .reference h3 {
 
-    text-align: center;
-
+    margin-top: 0;
 }
 
+.reference ol {
 
-.reference li {
-
-    margin: 7px 0;
-
+    padding-left: 25px;
 }
 
 
 /* =========================================
-   CANVAS
+   HIDDEN CANVAS
 ========================================= */
 
 #canvas {
 
     display: none;
-
 }
 
 
@@ -437,27 +418,54 @@ button:active {
 
     h1 {
 
-        font-size: 28px;
-
+        font-size: 27px;
     }
 
     .wires {
 
         grid-template-columns:
             repeat(2, 1fr);
-
     }
 
     .wire {
 
-        min-height: 75px;
-
+        min-height: 80px;
     }
 
     button {
 
         font-size: 15px;
+    }
 
+    .rj45-frame {
+
+        left: 12%;
+
+        width: 76%;
+
+        top: 36%;
+
+        height: 28%;
+    }
+
+}
+
+
+/* =========================================
+   LARGE PHONE CAMERA
+========================================= */
+
+@media (min-width: 501px) {
+
+    .rj45-frame {
+
+        left: 20%;
+
+        width: 60%;
+
+        top: 35%;
+
+        height: 30%;
     }
 
 }
@@ -470,11 +478,21 @@ button:active {
 <body>
 
 
+<!-- =========================================
+     TITLE
+========================================= -->
+
 <h1>🔌 UTP Color Detector</h1>
 
 
-<div id="connection">
+<!-- =========================================
+     CONNECTION STATUS
+========================================= -->
+
+<div id="connectionStatus">
+
     🌐 Checking connection...
+
 </div>
 
 
@@ -485,12 +503,12 @@ inside the red scanning frame.
 
 <br>
 
-Align the 8 wires with pins 1–8.
+Align the 8 wires with the 8 PIN guide columns.
 
-<br>
+<br><br>
 
 <strong>
-Keep the RJ45 straight and use good lighting.
+Use good lighting and hold the RJ45 steady.
 </strong>
 
 </p>
@@ -505,51 +523,40 @@ Keep the RJ45 straight and use good lighting.
     <video
         id="camera"
         autoplay
-        playsinline
-        muted>
+        playsinline>
     </video>
 
+
+    <!-- RJ45 FRAME -->
 
     <div class="rj45-frame">
 
         <div class="frame-label">
+
             RJ45 WIRE SCAN AREA
+
         </div>
 
 
+        <!-- 8 PIN GUIDES -->
+
         <div class="wire-guides">
 
-            <div class="guide">
-                <div class="guide-number">1</div>
-            </div>
+            <div class="guide">1</div>
 
-            <div class="guide">
-                <div class="guide-number">2</div>
-            </div>
+            <div class="guide">2</div>
 
-            <div class="guide">
-                <div class="guide-number">3</div>
-            </div>
+            <div class="guide">3</div>
 
-            <div class="guide">
-                <div class="guide-number">4</div>
-            </div>
+            <div class="guide">4</div>
 
-            <div class="guide">
-                <div class="guide-number">5</div>
-            </div>
+            <div class="guide">5</div>
 
-            <div class="guide">
-                <div class="guide-number">6</div>
-            </div>
+            <div class="guide">6</div>
 
-            <div class="guide">
-                <div class="guide-number">7</div>
-            </div>
+            <div class="guide">7</div>
 
-            <div class="guide">
-                <div class="guide-number">8</div>
-            </div>
+            <div class="guide">8</div>
 
         </div>
 
@@ -564,53 +571,88 @@ Keep the RJ45 straight and use good lighting.
 
 <div class="camera-controls">
 
-    <h2>🎯 Adjust RJ45</h2>
+    <h3>🎯 Adjust RJ45</h3>
 
-    <div>
+
+    <label>
 
         🔍 Zoom:
 
-        <strong id="zoomValue">
-            1.0x
-        </strong>
+        <span id="zoomValue">
 
-    </div>
+            1.0x
+
+        </span>
+
+    </label>
+
+
+    <br>
 
 
     <input
+
         type="range"
+
         id="zoomSlider"
+
         min="1"
+
         max="3"
+
         step="0.1"
+
         value="1">
 
 
     <div class="move-buttons">
 
-        <button onclick="moveFrame(0,-2)">
+
+        <button
+            onclick="moveFrame(0,-2)">
+
             ▲
+
         </button>
+
 
         <br>
 
-        <button onclick="moveFrame(-2,0)">
+
+        <button
+            onclick="moveFrame(-2,0)">
+
             ◀
+
         </button>
 
-        <button onclick="resetFrame()">
+
+        <button
+            onclick="resetFrame()">
+
             🔄
+
         </button>
 
-        <button onclick="moveFrame(2,0)">
+
+        <button
+            onclick="moveFrame(2,0)">
+
             ▶
+
         </button>
+
 
         <br>
 
-        <button onclick="moveFrame(0,2)">
+
+        <button
+            onclick="moveFrame(0,2)">
+
             ▼
+
         </button>
+
 
     </div>
 
@@ -623,88 +665,168 @@ Keep the RJ45 straight and use good lighting.
 
 <div class="wires">
 
+
     <div class="wire">
-        <div class="pin">PIN 1</div>
-        <div class="pin-result" id="pin1">
-            Waiting...
+
+        <div class="pin">
+
+            PIN 1
+
         </div>
+
+        <div id="pin1">
+
+            Waiting...
+
+        </div>
+
     </div>
 
 
     <div class="wire">
-        <div class="pin">PIN 2</div>
-        <div class="pin-result" id="pin2">
-            Waiting...
+
+        <div class="pin">
+
+            PIN 2
+
         </div>
+
+        <div id="pin2">
+
+            Waiting...
+
+        </div>
+
     </div>
 
 
     <div class="wire">
-        <div class="pin">PIN 3</div>
-        <div class="pin-result" id="pin3">
-            Waiting...
+
+        <div class="pin">
+
+            PIN 3
+
         </div>
+
+        <div id="pin3">
+
+            Waiting...
+
+        </div>
+
     </div>
 
 
     <div class="wire">
-        <div class="pin">PIN 4</div>
-        <div class="pin-result" id="pin4">
-            Waiting...
+
+        <div class="pin">
+
+            PIN 4
+
         </div>
+
+        <div id="pin4">
+
+            Waiting...
+
+        </div>
+
     </div>
 
 
     <div class="wire">
-        <div class="pin">PIN 5</div>
-        <div class="pin-result" id="pin5">
-            Waiting...
+
+        <div class="pin">
+
+            PIN 5
+
         </div>
+
+        <div id="pin5">
+
+            Waiting...
+
+        </div>
+
     </div>
 
 
     <div class="wire">
-        <div class="pin">PIN 6</div>
-        <div class="pin-result" id="pin6">
-            Waiting...
+
+        <div class="pin">
+
+            PIN 6
+
         </div>
+
+        <div id="pin6">
+
+            Waiting...
+
+        </div>
+
     </div>
 
 
     <div class="wire">
-        <div class="pin">PIN 7</div>
-        <div class="pin-result" id="pin7">
-            Waiting...
+
+        <div class="pin">
+
+            PIN 7
+
         </div>
+
+        <div id="pin7">
+
+            Waiting...
+
+        </div>
+
     </div>
 
 
     <div class="wire">
-        <div class="pin">PIN 8</div>
-        <div class="pin-result" id="pin8">
-            Waiting...
+
+        <div class="pin">
+
+            PIN 8
+
         </div>
+
+        <div id="pin8">
+
+            Waiting...
+
+        </div>
+
     </div>
+
 
 </div>
 
 
 <!-- =========================================
-     BUTTONS
+     SCAN BUTTONS
 ========================================= -->
 
 <button onclick="checkCable()">
+
     📷 CHECK RJ45
+
 </button>
 
 
 <button onclick="enhanceAndScan()">
+
     ✨ ENHANCE & SCAN
+
 </button>
 
 
 <button onclick="demoScan()">
+
     🧪 DEMO SCAN
+
 </button>
 
 
@@ -720,62 +842,50 @@ Keep the RJ45 straight and use good lighting.
 
 
 <!-- =========================================
-     REFERENCE
+     T568B REFERENCE
 ========================================= -->
 
 <div class="reference">
 
-    <h3>
-        📌 T568B STANDARD
-    </h3>
+    <h3>📌 T568B Standard</h3>
+
 
     <ol>
 
-        <li>
-            White/Orange
-        </li>
+        <li>White/Orange</li>
 
-        <li>
-            Orange
-        </li>
+        <li>Orange</li>
 
-        <li>
-            White/Green
-        </li>
+        <li>White/Green</li>
 
-        <li>
-            Blue
-        </li>
+        <li>Blue</li>
 
-        <li>
-            White/Blue
-        </li>
+        <li>White/Blue</li>
 
-        <li>
-            Green
-        </li>
+        <li>Green</li>
 
-        <li>
-            White/Brown
-        </li>
+        <li>White/Brown</li>
 
-        <li>
-            Brown
-        </li>
+        <li>Brown</li>
 
     </ol>
 
 </div>
 
 
+<!-- =========================================
+     CANVAS
+========================================= -->
+
 <canvas id="canvas"></canvas>
 
 
 <script>
 
-/* =========================================
-   ELEMENTS
-========================================= */
+
+// =========================================
+// ELEMENTS
+// =========================================
 
 const camera =
     document.getElementById("camera");
@@ -789,7 +899,7 @@ const ctx =
 const result =
     document.getElementById("result");
 
-const frame =
+const rj45Frame =
     document.querySelector(".rj45-frame");
 
 const zoomSlider =
@@ -798,69 +908,80 @@ const zoomSlider =
 const zoomValue =
     document.getElementById("zoomValue");
 
-const connection =
-    document.getElementById("connection");
+const connectionStatus =
+    document.getElementById(
+        "connectionStatus"
+    );
 
 
-let cameraTrack = null;
-
-
-/* =========================================
-   T568B
-========================================= */
+// =========================================
+// T568B STANDARD
+// =========================================
 
 const T568B = [
 
     "White/Orange",
+
     "Orange",
+
     "White/Green",
+
     "Blue",
+
     "White/Blue",
+
     "Green",
+
     "White/Brown",
+
     "Brown"
 
 ];
 
 
-/* =========================================
-   FRAME POSITION
-========================================= */
+// =========================================
+// CAMERA VARIABLES
+// =========================================
 
-let frameLeft = 23;
+let stream = null;
 
-let frameTop = 31;
+let cameraTrack = null;
+
+let currentZoom = 1;
 
 
-/* =========================================
-   ONLINE / OFFLINE
-========================================= */
+// =========================================
+// FRAME POSITION
+// =========================================
 
-function updateConnection() {
+let frameLeft = 0;
+
+let frameTop = 0;
+
+
+// =========================================
+// CONNECTION CHECK
+// =========================================
+
+function updateConnectionStatus() {
 
     if (navigator.onLine) {
 
-        connection.innerHTML =
+        connectionStatus.innerHTML =
             "🌐 ONLINE";
 
-        connection.style.background =
-            "#d9f7df";
-
-        connection.style.color =
-            "#16752d";
+        connectionStatus.className =
+            "online";
 
     }
 
     else {
 
-        connection.innerHTML =
+        connectionStatus.innerHTML =
             "📴 OFFLINE MODE";
 
-        connection.style.background =
-            "#fff0c2";
-
-        connection.style.color =
-            "#7a5a00";
+        connectionStatus.className =
+            "offline";
 
     }
 
@@ -869,22 +990,22 @@ function updateConnection() {
 
 window.addEventListener(
     "online",
-    updateConnection
+    updateConnectionStatus
 );
 
 
 window.addEventListener(
     "offline",
-    updateConnection
+    updateConnectionStatus
 );
 
 
-updateConnection();
+updateConnectionStatus();
 
 
-/* =========================================
-   START CAMERA
-========================================= */
+// =========================================
+// START CAMERA
+// =========================================
 
 async function startCamera() {
 
@@ -902,14 +1023,13 @@ async function startCamera() {
         }
 
 
-        result.style.color =
-            "black";
+        result.style.color = "black";
 
         result.innerHTML =
             "📷 Starting camera...";
 
 
-        const stream =
+        stream =
             await navigator.mediaDevices
             .getUserMedia({
 
@@ -925,6 +1045,10 @@ async function startCamera() {
 
                     height: {
                         ideal: 1080
+                    },
+
+                    frameRate: {
+                        ideal: 30
                     }
 
                 },
@@ -945,65 +1069,75 @@ async function startCamera() {
             stream.getVideoTracks()[0];
 
 
-        /* Try continuous focus */
+        // =====================================
+        // ADVANCED CAMERA CONTROLS
+        // =====================================
 
-        try {
+        if (cameraTrack) {
 
-            const capabilities =
-                cameraTrack.getCapabilities();
+            try {
+
+                const capabilities =
+                    cameraTrack
+                    .getCapabilities();
 
 
-            const advanced = {};
+                const advanced = {};
 
 
-            if (
-                capabilities.focusMode &&
-                capabilities.focusMode.includes(
-                    "continuous"
-                )
-            ) {
+                // Continuous autofocus
 
-                advanced.focusMode =
-                    "continuous";
+                if (
+                    capabilities.focusMode &&
+                    capabilities.focusMode
+                    .includes("continuous")
+                ) {
+
+                    advanced.focusMode =
+                        "continuous";
+
+                }
+
+
+                // Continuous exposure
+
+                if (
+                    capabilities.exposureMode &&
+                    capabilities.exposureMode
+                    .includes("continuous")
+                ) {
+
+                    advanced.exposureMode =
+                        "continuous";
+
+                }
+
+
+                if (
+                    Object.keys(advanced).length
+                    > 0
+                ) {
+
+                    await cameraTrack
+                        .applyConstraints({
+
+                            advanced: [
+                                advanced
+                            ]
+
+                        });
+
+                }
 
             }
 
+            catch (error) {
 
-            if (
-                capabilities.exposureMode &&
-                capabilities.exposureMode.includes(
-                    "continuous"
-                )
-            ) {
-
-                advanced.exposureMode =
-                    "continuous";
+                console.log(
+                    "Advanced camera controls unavailable"
+                );
 
             }
-
-
-            if (
-                Object.keys(advanced).length
-            ) {
-
-                await cameraTrack
-                    .applyConstraints({
-
-                        advanced: [
-                            advanced
-                        ]
-
-                    });
-
-            }
-
-        }
-
-        catch (error) {
-
-            console.log(
-                "Advanced camera controls unavailable."
-            );
 
         }
 
@@ -1013,9 +1147,14 @@ async function startCamera() {
 
 
         result.innerHTML =
+
             "🟢 CAMERA READY" +
+
             "<br><br>" +
-            "Place the RJ45 inside the red frame.";
+
+            "Place the RJ45 inside " +
+
+            "the red frame.";
 
     }
 
@@ -1030,162 +1169,29 @@ async function startCamera() {
 
 
         result.innerHTML =
+
             "❌ CAMERA ERROR" +
+
             "<br><br>" +
-            "Allow camera permission in Safari.";
+
+            "Allow camera permission." +
+
+            "<br><br>" +
+
+            "If using GitHub Pages, " +
+
+            "make sure you are opening " +
+
+            "the HTTPS website.";
 
     }
 
 }
 
 
-/* =========================================
-   ZOOM
-========================================= */
-
-zoomSlider.addEventListener(
-    "input",
-    async function() {
-
-        const zoom =
-            parseFloat(
-                zoomSlider.value
-            );
-
-
-        zoomValue.textContent =
-            zoom.toFixed(1) + "x";
-
-
-        if (!cameraTrack) {
-            return;
-        }
-
-
-        try {
-
-            const capabilities =
-                cameraTrack.getCapabilities();
-
-
-            if (
-                capabilities.zoom
-            ) {
-
-                const min =
-                    capabilities.zoom.min;
-
-                const max =
-                    capabilities.zoom.max;
-
-
-                const actualZoom =
-                    Math.min(
-                        max,
-                        Math.max(
-                            min,
-                            zoom
-                        )
-                    );
-
-
-                await cameraTrack
-                    .applyConstraints({
-
-                        advanced: [
-
-                            {
-                                zoom:
-                                    actualZoom
-                            }
-
-                        ]
-
-                    });
-
-            }
-
-        }
-
-        catch (error) {
-
-            console.log(
-                "Hardware zoom unavailable."
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================
-   MOVE FRAME
-========================================= */
-
-function moveFrame(x, y) {
-
-    frameLeft += x;
-
-    frameTop += y;
-
-
-    /* Keep frame on screen */
-
-    frameLeft =
-        Math.max(
-            5,
-            Math.min(
-                70,
-                frameLeft
-            )
-        );
-
-
-    frameTop =
-        Math.max(
-            5,
-            Math.min(
-                60,
-                frameTop
-            )
-        );
-
-
-    frame.style.left =
-        frameLeft + "%";
-
-
-    frame.style.top =
-        frameTop + "%";
-
-}
-
-
-/* =========================================
-   RESET FRAME
-========================================= */
-
-function resetFrame() {
-
-    frameLeft = 23;
-
-    frameTop = 31;
-
-
-    frame.style.left =
-        frameLeft + "%";
-
-
-    frame.style.top =
-        frameTop + "%";
-
-}
-
-
-/* =========================================
-   GET FRAME AREA
-========================================= */
+// =========================================
+// GET SCAN AREA
+// =========================================
 
 function getScanArea() {
 
@@ -1194,7 +1200,7 @@ function getScanArea() {
 
 
     const frameRect =
-        frame.getBoundingClientRect();
+        rj45Frame.getBoundingClientRect();
 
 
     const scaleX =
@@ -1207,43 +1213,74 @@ function getScanArea() {
         videoRect.height;
 
 
+    const left =
+        (frameRect.left -
+        videoRect.left) *
+        scaleX;
+
+
+    const top =
+        (frameRect.top -
+        videoRect.top) *
+        scaleY;
+
+
+    const width =
+        frameRect.width *
+        scaleX;
+
+
+    const height =
+        frameRect.height *
+        scaleY;
+
+
     return {
 
-        left:
-            (frameRect.left -
-             videoRect.left) *
-            scaleX,
+        left: Math.max(
+            0,
+            left
+        ),
 
-        top:
-            (frameRect.top -
-             videoRect.top) *
-            scaleY,
+        top: Math.max(
+            0,
+            top
+        ),
 
-        width:
-            frameRect.width *
-            scaleX,
+        width: Math.min(
+            width,
+            camera.videoWidth
+        ),
 
-        height:
-            frameRect.height *
-            scaleY
+        height: Math.min(
+            height,
+            camera.videoHeight
+        )
 
     };
 
 }
 
 
-/* =========================================
-   CAPTURE CAMERA
-========================================= */
+// =========================================
+// CHECK CABLE
+// =========================================
 
-function captureCamera() {
+function checkCable() {
 
     if (
         !camera.videoWidth ||
         !camera.videoHeight
     ) {
 
-        return false;
+        result.style.color =
+            "red";
+
+
+        result.innerHTML =
+            "❌ Camera is not ready.";
+
+        return;
 
     }
 
@@ -1269,28 +1306,8 @@ function captureCamera() {
     );
 
 
-    return true;
-
-}
-
-
-/* =========================================
-   CHECK RJ45
-========================================= */
-
-function checkCable() {
-
-    if (!captureCamera()) {
-
-        result.style.color =
-            "red";
-
-        result.innerHTML =
-            "❌ Camera is not ready.";
-
-        return;
-
-    }
+    const area =
+        getScanArea();
 
 
     result.style.color =
@@ -1301,31 +1318,25 @@ function checkCable() {
         "🔍 ANALYZING 8 PIN POSITIONS...";
 
 
-    const area =
-        getScanArea();
-
-
-    const detected =
-        scanRJ45(area);
-
-
-    compareT568B(
-        detected
-    );
+    scanArea(area);
 
 }
 
 
-/* =========================================
-   ENHANCE AND SCAN
-========================================= */
+// =========================================
+// ENHANCE AND SCAN
+// =========================================
 
 function enhanceAndScan() {
 
-    if (!captureCamera()) {
+    if (
+        !camera.videoWidth ||
+        !camera.videoHeight
+    ) {
 
         result.style.color =
             "red";
+
 
         result.innerHTML =
             "❌ Camera is not ready.";
@@ -1335,73 +1346,105 @@ function enhanceAndScan() {
     }
 
 
-    result.innerHTML =
-        "✨ ENHANCING IMAGE...";
+    canvas.width =
+        camera.videoWidth;
+
+
+    canvas.height =
+        camera.videoHeight;
+
+
+    ctx.drawImage(
+
+        camera,
+
+        0,
+        0,
+
+        canvas.width,
+        canvas.height
+
+    );
 
 
     const area =
         getScanArea();
 
 
-    const image =
-        ctx.getImageData(
+    result.style.color =
+        "black";
+
+
+    result.innerHTML =
+        "✨ ENHANCING IMAGE...";
+
+
+    try {
+
+        const image =
+            ctx.getImageData(
+
+                Math.floor(area.left),
+
+                Math.floor(area.top),
+
+                Math.floor(area.width),
+
+                Math.floor(area.height)
+
+            );
+
+
+        enhanceImage(
+            image.data
+        );
+
+
+        ctx.putImageData(
+
+            image,
 
             Math.floor(area.left),
 
-            Math.floor(area.top),
-
-            Math.floor(area.width),
-
-            Math.floor(area.height)
+            Math.floor(area.top)
 
         );
 
 
-    enhanceImage(
-        image.data
-    );
+        setTimeout(
 
+            function() {
 
-    ctx.putImageData(
+                scanArea(area);
 
-        image,
+            },
 
-        Math.floor(area.left),
+            150
 
-        Math.floor(area.top)
+        );
 
-    );
+    }
 
+    catch (error) {
 
-    setTimeout(
+        console.error(error);
 
-        function() {
+        result.innerHTML =
+            "❌ Unable to process image.";
 
-            const detected =
-                scanRJ45(area);
-
-
-            compareT568B(
-                detected
-            );
-
-        },
-
-        200
-
-    );
+    }
 
 }
 
 
-/* =========================================
-   IMAGE ENHANCEMENT
-========================================= */
+// =========================================
+// IMAGE ENHANCEMENT
+// =========================================
 
 function enhanceImage(data) {
 
     const contrast =
-        1.35;
+        1.25;
 
 
     for (
@@ -1436,37 +1479,30 @@ function enhanceImage(data) {
 
 
         r += 5;
+
         g += 5;
+
         b += 5;
 
 
         data[i] =
             Math.max(
                 0,
-                Math.min(
-                    255,
-                    r
-                )
+                Math.min(255, r)
             );
 
 
         data[i + 1] =
             Math.max(
                 0,
-                Math.min(
-                    255,
-                    g
-                )
+                Math.min(255, g)
             );
 
 
         data[i + 2] =
             Math.max(
                 0,
-                Math.min(
-                    255,
-                    b
-                )
+                Math.min(255, b)
             );
 
     }
@@ -1474,11 +1510,11 @@ function enhanceImage(data) {
 }
 
 
-/* =========================================
-   SCAN RJ45
-========================================= */
+// =========================================
+// SCAN 8 WIRES
+// =========================================
 
-function scanRJ45(area) {
+function scanArea(area) {
 
     const detected = [];
 
@@ -1489,82 +1525,143 @@ function scanRJ45(area) {
         i++
     ) {
 
-        /*
-           Each pin gets its own
-           narrow vertical scanning area.
-        */
-
         const centerX =
 
             area.left +
 
             area.width *
+
             (
                 (i + 0.5) / 8
             );
 
 
         /*
-           Skip the metal contacts
-           at the top.
-        */
+         * Scan the middle section
+         * of the RJ45.
+         */
 
         const startY =
+
             area.top +
-            area.height * 0.18;
+
+            area.height *
+            0.25;
 
 
         const scanHeight =
-            area.height * 0.70;
 
+            area.height *
+            0.50;
 
-        /*
-           Narrow sample around
-           the center of the pin.
-        */
 
         const sampleWidth =
+
             Math.max(
-                10,
-                area.width * 0.075
+
+                8,
+
+                area.width *
+                0.07
+
             );
+
+
+        let x =
+            Math.floor(
+                centerX -
+                sampleWidth / 2
+            );
+
+
+        let y =
+            Math.floor(startY);
+
+
+        let width =
+            Math.floor(
+                sampleWidth
+            );
+
+
+        let height =
+            Math.floor(
+                scanHeight
+            );
+
+
+        // Prevent canvas errors
+
+        x =
+            Math.max(
+                0,
+                Math.min(
+                    x,
+                    canvas.width - 1
+                )
+            );
+
+
+        y =
+            Math.max(
+                0,
+                Math.min(
+                    y,
+                    canvas.height - 1
+                )
+            );
+
+
+        width =
+            Math.min(
+                width,
+                canvas.width - x
+            );
+
+
+        height =
+            Math.min(
+                height,
+                canvas.height - y
+            );
+
+
+        if (
+            width <= 0 ||
+            height <= 0
+        ) {
+
+            detected.push(
+                "Unknown"
+            );
+
+            continue;
+
+        }
 
 
         const imageData =
             ctx.getImageData(
 
-                Math.max(
-                    0,
-                    Math.floor(
-                        centerX -
-                        sampleWidth / 2
-                    )
-                ),
+                x,
 
-                Math.max(
-                    0,
-                    Math.floor(startY)
-                ),
+                y,
 
-                Math.floor(
-                    sampleWidth
-                ),
+                width,
 
-                Math.floor(
-                    scanHeight
-                )
+                height
 
             );
 
 
-        const wire =
-            analyzeWire(
+        const color =
+            detectWireColor(
                 imageData.data
             );
 
 
         detected.push(
-            wire
+            color
         );
 
 
@@ -1574,33 +1671,29 @@ function scanRJ45(area) {
             );
 
 
-        box.innerHTML =
-            wire.name +
-            "<br>" +
-            "<small>" +
-            wire.type +
-            "</small>";
+        box.textContent =
+            color;
 
 
         box.parentElement.style
             .background =
-            displayColor(
-                wire.name
-            );
+            displayColor(color);
 
     }
 
 
-    return detected;
+    compareT568B(
+        detected
+    );
 
 }
 
 
-/* =========================================
-   ANALYZE ONE WIRE
-========================================= */
+// =========================================
+// COLOR DETECTION
+// =========================================
 
-function analyzeWire(data) {
+function detectWireColor(data) {
 
     let orange = 0;
 
@@ -1612,7 +1705,7 @@ function analyzeWire(data) {
 
     let white = 0;
 
-    let valid = 0;
+    let total = 0;
 
 
     for (
@@ -1653,16 +1746,41 @@ function analyzeWire(data) {
 
         const saturation =
             max === 0
-            ? 0
-            : (max - min) / max;
+
+                ? 0
+
+                :
+
+                (max - min) /
+                max;
 
 
-        /*
-           Ignore very dark pixels.
-        */
+        total++;
+
+
+        // =================================
+        // WHITE
+        // =================================
 
         if (
-            brightness < 35
+
+            brightness > 135 &&
+
+            saturation < 0.28
+
+        ) {
+
+            white++;
+
+            continue;
+
+        }
+
+
+        // Ignore very dark pixels
+
+        if (
+            brightness < 45
         ) {
 
             continue;
@@ -1670,35 +1788,17 @@ function analyzeWire(data) {
         }
 
 
-        valid++;
-
-
-        /*
-           WHITE
-        */
+        // =================================
+        // ORANGE
+        // =================================
 
         if (
 
-            brightness > 130 &&
-            saturation < 0.32
+            r > g * 1.10 &&
 
-        ) {
-
-            white++;
-
-        }
-
-
-        /*
-           ORANGE
-        */
-
-        if (
-
-            r > 120 &&
-            r > g * 1.15 &&
             r > b * 1.25 &&
-            g > b * 1.03
+
+            g > b * 1.02
 
         ) {
 
@@ -1707,14 +1807,14 @@ function analyzeWire(data) {
         }
 
 
-        /*
-           GREEN
-        */
+        // =================================
+        // GREEN
+        // =================================
 
         else if (
 
-            g > 70 &&
             g > r * 1.10 &&
+
             g > b * 1.05
 
         ) {
@@ -1724,15 +1824,15 @@ function analyzeWire(data) {
         }
 
 
-        /*
-           BLUE
-        */
+        // =================================
+        // BLUE
+        // =================================
 
         else if (
 
-            b > 70 &&
-            b > r * 1.15 &&
-            b > g * 1.05
+            b > r * 1.12 &&
+
+            b > g * 1.03
 
         ) {
 
@@ -1741,15 +1841,16 @@ function analyzeWire(data) {
         }
 
 
-        /*
-           BROWN
-        */
+        // =================================
+        // BROWN
+        // =================================
 
         else if (
 
-            r > 60 &&
             r > g &&
+
             g > b &&
+
             r > b * 1.15
 
         ) {
@@ -1761,61 +1862,45 @@ function analyzeWire(data) {
     }
 
 
-    if (valid === 0) {
+    const colors = {
 
-        return {
+        "Orange":
+            orange,
 
-            name: "Unknown",
+        "Green":
+            green,
 
-            type: "No signal"
+        "Blue":
+            blue,
 
-        };
-
-    }
-
-
-    /*
-       Calculate color percentages.
-    */
-
-    const scores = {
-
-        Orange:
-            orange / valid,
-
-        Green:
-            green / valid,
-
-        Blue:
-            blue / valid,
-
-        Brown:
-            brown / valid
+        "Brown":
+            brown
 
     };
 
 
-    let bestColor =
+    let strongestColor =
         "Unknown";
 
 
-    let bestScore =
+    let strongestValue =
         0;
 
 
     for (
-        const color in scores
+        const color in colors
     ) {
 
         if (
-            scores[color] >
-            bestScore
+            colors[color] >
+            strongestValue
         ) {
 
-            bestScore =
-                scores[color];
+            strongestValue =
+                colors[color];
 
-            bestColor =
+
+            strongestColor =
                 color;
 
         }
@@ -1823,100 +1908,146 @@ function analyzeWire(data) {
     }
 
 
-    /*
-       If mostly white,
-       call it white.
-    */
-
     const whiteRatio =
-        white / valid;
+        white /
+        Math.max(
+            total,
+            1
+        );
 
+
+    const colorRatio =
+        strongestValue /
+        Math.max(
+            total,
+            1
+        );
+
+
+    // =================================
+    // WHITE / STRIPED
+    // =================================
 
     if (
-        whiteRatio > 0.45
+
+        whiteRatio > 0.45 &&
+
+        colorRatio < 0.25
+
     ) {
 
-        return {
-
-            name:
-                "White",
-
-            type:
-                "Light/Striped"
-
-        };
+        return "White";
 
     }
 
 
-    /*
-       If color is weak,
-       don't pretend to know.
-    */
-
     if (
-        bestScore < 0.08
+
+        whiteRatio > 0.25 &&
+
+        strongestColor !==
+        "Unknown"
+
     ) {
 
-        return {
-
-            name:
-                "Unknown",
-
-            type:
-                "Low confidence"
-
-        };
+        return (
+            "White/" +
+            strongestColor
+        );
 
     }
 
 
-    /*
-       Estimate striped wire.
-    */
+    // =================================
+    // SOLID COLOR
+    // =================================
 
     if (
-        whiteRatio > 0.18
+        strongestValue > 0
     ) {
 
-        return {
-
-            name:
-                "White/" +
-                bestColor,
-
-            type:
-                "Striped"
-
-        };
+        return strongestColor;
 
     }
 
 
-    return {
-
-        name:
-            bestColor,
-
-        type:
-            "Solid"
-
-    };
+    return "Unknown";
 
 }
 
 
-/* =========================================
-   COMPARE T568B
-========================================= */
+// =========================================
+// DISPLAY COLORS
+// =========================================
+
+function displayColor(color) {
+
+    if (
+        color.includes("Orange")
+    ) {
+
+        return "#fff0e5";
+
+    }
+
+
+    if (
+        color.includes("Green")
+    ) {
+
+        return "#e5f7e8";
+
+    }
+
+
+    if (
+        color.includes("Blue")
+    ) {
+
+        return "#e5efff";
+
+    }
+
+
+    if (
+        color.includes("Brown")
+    ) {
+
+        return "#f3e8df";
+
+    }
+
+
+    if (
+        color === "White"
+    ) {
+
+        return "#ffffff";
+
+    }
+
+
+    return "#eeeeee";
+
+}
+
+
+// =========================================
+// COMPARE WITH T568B
+// =========================================
 
 function compareT568B(detected) {
 
     let correct =
-        true;
+        0;
 
 
-    const wrongPins = [];
+    let wrong =
+        0;
+
+
+    let wrongPins =
+        [];
 
 
     for (
@@ -1925,166 +2056,320 @@ function compareT568B(detected) {
         i++
     ) {
 
-        const actual =
-            detected[i].name;
-
-
         const expected =
             T568B[i];
 
 
+        const actual =
+            detected[i];
+
+
+        const box =
+            document.getElementById(
+                "pin" + (i + 1)
+            );
+
+
         if (
-            actual !== expected
+            actual === expected
         ) {
 
-            correct =
-                false;
+            correct++;
 
 
-            wrongPins.push({
+            box.innerHTML =
 
-                pin:
-                    i + 1,
+                "✅ " +
 
-                expected:
-                    expected,
+                actual;
 
-                actual:
-                    actual
 
-            });
+            box.parentElement.style
+                .borderColor =
+                "green";
+
+        }
+
+
+        else {
+
+            wrong++;
+
+
+            wrongPins.push(
+                i + 1
+            );
+
+
+            box.innerHTML =
+
+                "❌ " +
+
+                actual +
+
+                "<br>" +
+
+                "<small>" +
+
+                "Expected: " +
+
+                expected +
+
+                "</small>";
+
+
+            box.parentElement.style
+                .borderColor =
+                "red";
 
         }
 
     }
 
 
-    if (correct) {
+    // =====================================
+    // FINAL RESULT
+    // =====================================
+
+    if (
+        wrong === 0
+    ) {
 
         result.style.color =
             "green";
 
 
         result.innerHTML =
-            "✅ CORRECT T568B ORDER!" +
-            "<br><br>" +
-            "All 8 pin positions match.";
 
-        return;
+            "✅ T568B CORRECT!" +
+
+            "<br><br>" +
+
+            "All 8 pins are " +
+
+            "in the correct order.";
 
     }
 
 
-    result.style.color =
-        "red";
+    else {
+
+        result.style.color =
+            "red";
 
 
-    let message =
-        "❌ T568B ORDER NOT MATCHED.";
+        result.innerHTML =
+
+            "❌ INCORRECT WIRE ORDER" +
+
+            "<br><br>" +
+
+            "Correct pins: " +
+
+            correct +
+
+            "/8" +
+
+            "<br>" +
+
+            "Wrong pins: " +
+
+            wrongPins.join(", ") +
+
+            "<br><br>" +
+
+            "Check the red PIN boxes.";
+
+    }
+
+}
 
 
-    message +=
-        "<br><br>" +
-        "<strong>CHECK:</strong><br>";
+// =========================================
+// ZOOM
+// =========================================
+
+zoomSlider.addEventListener(
+
+    "input",
+
+    async function() {
+
+        currentZoom =
+            parseFloat(
+                this.value
+            );
 
 
-    wrongPins.forEach(
-        function(item) {
+        zoomValue.textContent =
+            currentZoom.toFixed(1) +
+            "x";
 
-            message +=
 
-                "PIN " +
-                item.pin +
-                ": Expected " +
-                item.expected +
-                " — Detected " +
-                item.actual +
-                "<br>";
+        if (
+            cameraTrack
+        ) {
+
+            try {
+
+                const capabilities =
+                    cameraTrack
+                    .getCapabilities();
+
+
+                if (
+                    capabilities.zoom
+                ) {
+
+                    const min =
+                        capabilities.zoom.min;
+
+
+                    const max =
+                        capabilities.zoom.max;
+
+
+                    const zoom =
+                        min +
+
+                        (
+                            (max - min) *
+
+                            (
+                                (currentZoom - 1) /
+                                2
+                            )
+                        );
+
+
+                    await cameraTrack
+                        .applyConstraints({
+
+                            advanced: [
+
+                                {
+                                    zoom:
+                                        zoom
+                                }
+
+                            ]
+
+                        });
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    "Hardware zoom unavailable"
+                );
+
+            }
 
         }
-    );
+
+    }
+
+);
 
 
-    result.innerHTML =
-        message;
+// =========================================
+// MOVE FRAME
+// =========================================
+
+function moveFrame(
+    x,
+    y
+) {
+
+    frameLeft += x;
+
+    frameTop += y;
+
+
+    frameLeft =
+        Math.max(
+            -20,
+            Math.min(
+                20,
+                frameLeft
+            )
+        );
+
+
+    frameTop =
+        Math.max(
+            -20,
+            Math.min(
+                20,
+                frameTop
+            )
+        );
+
+
+    rj45Frame.style.transform =
+
+        "translate(" +
+
+        frameLeft +
+
+        "%," +
+
+        frameTop +
+
+        "%)";
 
 }
 
 
-/* =========================================
-   DISPLAY COLORS
-========================================= */
+// =========================================
+// RESET FRAME
+// =========================================
 
-function displayColor(name) {
+function resetFrame() {
 
-    if (
-        name.includes("Orange")
-    ) {
-
-        return "#fff0d8";
-
-    }
+    frameLeft =
+        0;
 
 
-    if (
-        name.includes("Green")
-    ) {
-
-        return "#dff5df";
-
-    }
+    frameTop =
+        0;
 
 
-    if (
-        name.includes("Blue")
-    ) {
-
-        return "#dfefff";
-
-    }
-
-
-    if (
-        name.includes("Brown")
-    ) {
-
-        return "#eee0d0";
-
-    }
-
-
-    if (
-        name === "White"
-    ) {
-
-        return "#ffffff";
-
-    }
-
-
-    return "#f5f5f5";
+    rj45Frame.style.transform =
+        "translate(0,0)";
 
 }
 
 
-/* =========================================
-   DEMO SCAN
-========================================= */
+// =========================================
+// DEMO SCAN
+// =========================================
 
 function demoScan() {
 
-    const demo = [
+    const demo =
+        [
 
-        "White/Orange",
-        "Orange",
-        "White/Green",
-        "Blue",
-        "White/Blue",
-        "Green",
-        "White/Brown",
-        "Brown"
+            "White/Orange",
 
-    ];
+            "Orange",
+
+            "White/Green",
+
+            "Blue",
+
+            "White/Blue",
+
+            "Green",
+
+            "White/Brown",
+
+            "Brown"
+
+        ];
 
 
     for (
@@ -2100,9 +2385,15 @@ function demoScan() {
 
 
         box.innerHTML =
-            demo[i] +
-            "<br>" +
-            "<small>Demo</small>";
+
+            "✅ " +
+
+            demo[i];
+
+
+        box.parentElement.style
+            .borderColor =
+            "green";
 
 
         box.parentElement.style
@@ -2119,22 +2410,42 @@ function demoScan() {
 
 
     result.innerHTML =
-        "🧪 DEMO SCAN COMPLETE" +
+
+        "🧪 DEMO RESULT" +
+
         "<br><br>" +
-        "✅ T568B ORDER IS CORRECT." +
+
+        "✅ T568B CORRECT!" +
+
         "<br><br>" +
-        "This is a simulated result.";
+
+        "All 8 pins detected " +
+
+        "in the correct order.";
 
 }
 
 
-/* =========================================
-   START
-========================================= */
+// =========================================
+// START
+// =========================================
 
-startCamera();
+window.addEventListener(
+
+    "load",
+
+    function() {
+
+        updateConnectionStatus();
+
+        startCamera();
+
+    }
+
+);
 
 </script>
+
 
 </body>
 
